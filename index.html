@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uk" class="h-full bg-[#0a0d14]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WEEBWE LLC // Brand Assets Demo</title>
+
+  <!-- 1. ПІДКТЮЧЕННЯ НАБОРУ FAVICONS ТА MANIFEST -->
+  <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/WEEBWE-LLC/weebwe@main/assets/favicons/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/WEEBWE-LLC/weebwe@main/assets/favicons/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/WEEBWE-LLC/weebwe@main/assets/favicons/apple-touch-icon.png">
+  <link rel="manifest" href="https://cdn.jsdelivr.net/gh/WEEBWE-LLC/weebwe@main/assets/favicons/site.webmanifest">
+
+  <!-- 2. OPEN GRAPH & TWITTER CARDS (Використання og-image при надсиланні посилання) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://weebwe.io/">
+  <meta property="og:title" content="WEEBWE LLC // Modern Infrastructure">
+  <meta property="og:description" content="Next-Gen Software Solutions & High-Load Architecture.">
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/WEEBWE-LLC/weebwe@main/assets/og-image.webp">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0a0d14',
+              card: '#121824',
+              cyan: '#00d2ff',
+              blue: '#0066ff'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      height: 100dvh;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="bg-brand-dark text-slate-100 flex flex-col justify-between p-6 sm:p-10 antialiased relative selection:bg-cyan-500 selection:text-black">
+
+  <!-- Фонові ефекти -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-950/30 via-brand-dark to-brand-dark pointer-events-none"></div>
+
+  <!-- Header з використанням логотипа та іконки -->
+  <header class="relative z-10 flex justify-between items-center max-w-6xl mx-auto w-full border-b border-slate-800/80 pb-4">
+    <div class="flex items-center space-x-3">
+      <!-- Демонстрація 1: Головний логотип weebwe.webp -->
+      <img src="https://cdn.jsdelivr.net/gh/WEEBWE-LLC/weebwe@main/assets/weebwe.webp" 
+           alt="WEEBWE Logo" 
+           class="h-9 w-auto drop-shadow-[0_0_12px_rgba(0,210,255,0.4)]">
+    </div>
+    
+    <div class="flex items-center space-x-2 bg-brand-card border border-slate-700/50 px-3 py-1.5 rounded-full">
+      <!-- Демонстрація 2: Квадратна іконка favicon-32x32.png як статус-аватар -->
+      <img src="https://cdn.jsdelivr.net/gh/WEEBWE-LLC/weebwe@main/assets/favicons/favicon-32x32.png" 
+           alt="Favicon Demo" 
+           class="w-4 h-4 rounded">
+      <span class="text-xs font-mono text-cyan-400">assets_loaded</span>
+    </div>
+  </header>
+
+  <!-- Головний блок із презентацією всіх активів -->
+  <main class="relative z-10 max-w-4xl mx-auto my-auto w-full grid grid-cols-1 md:grid-cols-3 gap-4">
+    
+    <!-- Картка 1: Main Brand WebP -->
+    <div class="bg-brand-card/60 backdrop-blur-md border border-slate-800 p-5 rounded-xl text-center flex flex-col items-center justify-center">
+      <div class="h-20 flex items-center justify-center mb-3">
+        <img src="https://cdn.jsdelivr.net/gh/WEEBWE-LLC/weebwe@main/assets/weebwe.webp" 
+             alt="Brand WebP" 
+             class="h-16 w-auto drop-shadow-[0_0_15px_rgba(0,210,255,0.5)]">
+      </div>
+      <h3 class="text-xs font-mono text-cyan-400 uppercase tracking-wider mb-1">Brand Logo</h3>
+      <p class="text-xs text-slate-400">weebwe.webp</p>
+    </div>
+
+    <!-- Картка 2: Vector SVG Favicon -->
+    <div class="bg-brand-card/60 backdrop-blur-md border border-slate-800 p-5 rounded-xl text-center flex flex-col items-center justify-center">
+      <div class="h-20 flex items-center justify-center mb-3">
+        <img src="https://cdn.jsdelivr.net/gh/WEEBWE-LLC/weebwe@main/assets/favicons/favicon.svg" 
+             alt="Vector SVG Favicon" 
+             class="h-16 w-16 drop-shadow-[0_0_15px_rgba(0,210,255,0.3)]">
+      </div>
+      <h3 class="text-xs font-mono text-cyan-400 uppercase tracking-wider mb-1">Favicon Vector</h3>
+      <p class="text-xs text-slate-400">favicons/favicon.svg</p>
+    </div>
+
+    <!-- Картка 3: Apple Touch Icon -->
+    <div class="bg-brand-card/60 backdrop-blur-md border border-slate-800 p-5 rounded-xl text-center flex flex-col items-center justify-center">
+      <div class="h-20 flex items-center justify-center mb-3">
+        <img src="https://cdn.jsdelivr.net/gh/WEEBWE-LLC/weebwe@main/assets/favicons/apple-touch-icon.png" 
+             alt="Apple Touch Icon" 
+             class="h-14 w-14 rounded-xl border border-cyan-500/30 shadow-lg">
+      </div>
+      <h3 class="text-xs font-mono text-cyan-400 uppercase tracking-wider mb-1">iOS App Icon</h3>
+      <p class="text-xs text-slate-400">apple-touch-icon.png</p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 flex flex-col sm:flex-row justify-between items-center max-w-6xl mx-auto w-full text-xs text-slate-500 font-mono border-t border-slate-800/80 pt-4">
+    <div>&copy; 2026 WEEBWE LLC</div>
+    <div class="flex space-x-4 mt-2 sm:mt-0">
+      <a href="https://weebwe.io" class="hover:text-cyan-400 transition-colors">weebwe.io</a>
+      <span>//</span>
+      <a href="mailto:admin@weebwe.io" class="hover:text-cyan-400 transition-colors">admin@weebwe.io</a>
+    </div>
+  </footer>
+
+</body>
+</html>
