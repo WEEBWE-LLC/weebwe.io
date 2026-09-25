@@ -31,7 +31,6 @@
             padding: 0;
         }
 
-        /* Сторінка строго в межах одного екрана */
         html, body {
             width: 100vw;
             height: 100vh;
@@ -48,18 +47,18 @@
         }
 
         /* ------------------------------------
-           СПЛИВАЮЧЕ ПОВІДОМЛЕННЯ ВСТАНОВЛЕННЯ (OVERLAY, БЕЗ ЗСУВУ)
+           СПЛИВАЮЧЕ ПОВІДОМЛЕННЯ ВСТАНОВЛЕННЯ
         ------------------------------------ */
         .install-banner {
             position: fixed;
-            top: 12px;
+            top: 10px;
             left: 50%;
-            transform: translateX(-50%) translateY(-120%);
-            width: min(92%, 520px);
-            background: rgba(10, 15, 24, 0.92);
+            transform: translateX(-50%) translateY(-130%);
+            width: min(94%, 500px);
+            background: rgba(10, 15, 24, 0.94);
             border: 1px solid rgba(31, 181, 255, 0.6);
             border-radius: 14px;
-            padding: 10px 16px;
+            padding: 8px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -76,12 +75,12 @@
         .banner-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .banner-icon {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 8px;
             object-fit: contain;
         }
@@ -94,19 +93,19 @@
         .banner-title {
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+            font-size: clamp(0.7rem, 1.2vw, 0.8rem);
             font-weight: 800;
         }
 
         .banner-sub {
             color: #8b949e;
-            font-size: clamp(0.65rem, 1vw, 0.72rem);
+            font-size: clamp(0.6rem, 1vw, 0.7rem);
         }
 
         .banner-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .install-btn {
@@ -114,33 +113,22 @@
             color: #000;
             border: none;
             border-radius: 8px;
-            padding: 7px 14px;
+            padding: 6px 12px;
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(0.65rem, 1vw, 0.75rem);
+            font-size: clamp(0.6rem, 1vw, 0.7rem);
             font-weight: 800;
             text-transform: uppercase;
-            transition: all 0.2s ease;
-        }
-
-        .install-btn:hover {
-            box-shadow: 0 0 15px rgba(31, 181, 255, 0.8);
-            transform: scale(1.04);
         }
 
         .close-banner {
             background: transparent;
             border: none;
             color: #8b949e;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             padding: 2px 6px;
-            line-height: 1;
         }
 
-        .close-banner:hover {
-            color: #ffffff;
-        }
-
-        /* Підказка щодо встановлення для Safari / інших браузерів */
+        /* Підказка щодо встановлення */
         .install-guide-modal {
             position: fixed;
             inset: 0;
@@ -166,7 +154,7 @@
             border: 1px solid rgba(31, 181, 255, 0.5);
             border-radius: 16px;
             padding: 20px;
-            max-width: 400px;
+            max-width: 380px;
             width: 100%;
             text-align: center;
             box-shadow: 0 0 30px rgba(31, 181, 255, 0.3);
@@ -175,14 +163,14 @@
         .modal-title {
             color: #1fb5ff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .modal-desc {
             color: #c9d1d9;
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             line-height: 1.4;
             margin-bottom: 16px;
         }
@@ -192,12 +180,11 @@
             color: #1fb5ff;
             border: 1px solid #1fb5ff;
             border-radius: 8px;
-            padding: 8px 18px;
+            padding: 8px 16px;
             font-family: 'Orbitron', sans-serif;
             font-size: 0.75rem;
             font-weight: 700;
         }
-
 
         /* ------------------------------------
            ОСНОВНА ЧАСТИНА (ЦЕНТР)
@@ -210,7 +197,7 @@
             justify-content: flex-start;
             width: 100%;
             height: 100%;
-            padding: 10px 15px;
+            padding: 10px 10px 0 10px;
             position: relative;
             overflow: hidden;
         }
@@ -220,7 +207,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(10px, 2.5vw, 20px);
+            gap: clamp(8px, 2vw, 16px);
             position: absolute;
             top: 50%;
             left: 50%;
@@ -235,13 +222,13 @@
                 transform: translate(-50%, -50%) scale(1);
             }
             100% {
-                top: clamp(15px, 3vh, 30px);
+                top: clamp(10px, 2.5vh, 20px);
                 transform: translate(-50%, 0) scale(0.65);
             }
         }
 
         .brand-logo {
-            height: clamp(50px, 10vh, 90px);
+            height: clamp(45px, 8vh, 80px);
             width: auto;
             object-fit: contain;
             opacity: 0;
@@ -252,17 +239,17 @@
             0% {
                 opacity: 0;
                 transform: scale(0.4) rotate(-5deg);
-                filter: blur(15px) drop-shadow(0 0 0px rgba(31, 181, 255, 0));
+                filter: blur(15px);
             }
             50% {
                 opacity: 1;
                 transform: scale(1.1) rotate(0deg);
-                filter: blur(0px) drop-shadow(0 0 40px rgba(31, 181, 255, 0.95));
+                filter: blur(0px) drop-shadow(0 0 30px rgba(31, 181, 255, 0.95));
             }
             100% {
                 opacity: 1;
                 transform: scale(1) rotate(0deg);
-                filter: blur(0px) drop-shadow(0 0 18px rgba(31, 181, 255, 0.4));
+                filter: blur(0px) drop-shadow(0 0 15px rgba(31, 181, 255, 0.4));
             }
         }
 
@@ -276,7 +263,7 @@
         .brand-title {
             color: #1fb5ff;
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.6rem, 4.5vw, 3.2rem);
+            font-size: clamp(1.4rem, 4vw, 3rem);
             font-weight: 900;
             letter-spacing: 2px;
             line-height: 1;
@@ -301,10 +288,10 @@
 
         .brand-slogan {
             color: #ffffff;
-            font-size: clamp(0.48rem, 1.2vw, 0.75rem);
+            font-size: clamp(0.42rem, 1vw, 0.7rem);
             font-weight: 600;
-            letter-spacing: 2px;
-            margin-top: 6px;
+            letter-spacing: 1.5px;
+            margin-top: 4px;
             text-transform: uppercase;
             white-space: nowrap;
             opacity: 0;
@@ -312,20 +299,19 @@
         }
 
         @keyframes revealSlogan {
-            to {
-                opacity: 0.9;
-            }
+            to { opacity: 0.9; }
         }
 
-        /* Контейнер для категорій та продуктів */
+        /* Контейнер категорій та продуктів */
         .content-container {
             width: 100%;
             max-width: 1200px;
-            margin-top: clamp(65px, 11vh, 95px);
+            margin-top: clamp(55px, 9vh, 80px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: calc(100vh - 125px);
+            flex: 1;
+            min-height: 0;
             opacity: 0;
             transform: translateY(15px);
             animation: showContent 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 4.8s;
@@ -339,12 +325,12 @@
         }
 
         /* ------------------------------------
-           СІТКА 7 КАТЕГОРІЙ (МАШТАБУЄТЬСЯ)
+           СТРОГО 1 РЯДОК ДЛЯ ВСІХ 7 КАТЕГОРІЙ
         ------------------------------------ */
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: clamp(6px, 1vw, 10px);
+            grid-template-columns: repeat(7, 1fr); /* Завжди 7 колонок в 1 рядок */
+            gap: clamp(3px, 0.8vw, 8px);
             width: 100%;
             flex-shrink: 0;
         }
@@ -352,29 +338,28 @@
         .category-card {
             background: rgba(13, 17, 23, 0.85);
             border: 1px solid rgba(31, 181, 255, 0.25);
-            border-radius: 12px;
-            padding: clamp(6px, 1.2vh, 12px) 4px;
+            border-radius: 10px;
+            padding: clamp(4px, 1vh, 8px) 2px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             backdrop-filter: blur(10px);
             transition: all 0.25s ease;
-            height: clamp(80px, 11vh, 105px);
+            height: clamp(65px, 9.5vh, 95px);
             justify-content: center;
         }
 
         .category-card:hover {
             border-color: rgba(31, 181, 255, 0.7);
-            box-shadow: 0 4px 20px rgba(31, 181, 255, 0.25);
+            box-shadow: 0 4px 15px rgba(31, 181, 255, 0.25);
             background: rgba(13, 17, 23, 0.95);
-            transform: translateY(-2px);
         }
 
         .category-card.active {
             border-color: #1fb5ff;
             background: rgba(31, 181, 255, 0.18);
-            box-shadow: 0 0 18px rgba(31, 181, 255, 0.45);
+            box-shadow: 0 0 15px rgba(31, 181, 255, 0.45);
         }
 
         .category-card.all-products {
@@ -382,68 +367,72 @@
         }
 
         .card-icon {
-            width: clamp(20px, 2.6vh, 28px);
-            height: clamp(20px, 2.6vh, 28px);
-            margin-bottom: 4px;
+            width: clamp(16px, 2.2vh, 26px);
+            height: clamp(16px, 2.2vh, 26px);
+            margin-bottom: 2px;
             stroke: #1fb5ff;
-            filter: drop-shadow(0 0 6px rgba(31, 181, 255, 0.5));
+            filter: drop-shadow(0 0 5px rgba(31, 181, 255, 0.5));
+            flex-shrink: 0;
         }
 
         .card-title {
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(0.55rem, 0.9vw, 0.75rem);
+            font-size: clamp(0.42rem, 0.75vw, 0.7rem);
             font-weight: 800;
-            letter-spacing: 0.3px;
-            line-height: 1.1;
+            letter-spacing: 0.2px;
+            line-height: 1;
+            white-space: nowrap;
         }
 
         .card-desc {
             color: #8b949e;
-            font-size: clamp(0.5rem, 0.75vw, 0.62rem);
+            font-size: clamp(0.4rem, 0.65vw, 0.58rem);
             margin-top: 2px;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
+            white-space: nowrap;
             overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
 
         /* ------------------------------------
-           ВИСУВНА ПАНЕЛЬ ПРОДУКТІВ
+           ВИСУВНА ПАНЕЛЬ ПРОДУКТІВ С ВІДСТУПОМ ВІД ФУТЕРА
         ------------------------------------ */
         .products-menu-panel {
             width: 100%;
-            margin-top: 10px;
+            margin-top: 8px;
+            margin-bottom: 12px; /* Гарантований відступ від корпоративних прав */
             background: rgba(13, 17, 23, 0.9);
             border: 1px solid rgba(31, 181, 255, 0.3);
-            border-radius: 14px;
+            border-radius: 12px;
             backdrop-filter: blur(15px);
             flex: 1;
+            min-height: 0; /* Дозволяє нормально стискатися всередині flex */
             display: flex;
             flex-direction: column;
             overflow: hidden;
             opacity: 0;
-            max-height: 0;
-            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.3s ease;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
         .products-menu-panel.open {
             opacity: 1;
-            max-height: 100%;
-            padding: 12px;
+            visibility: visible;
+            padding: 10px;
         }
 
         .menu-header {
             color: #1fb5ff;
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(0.75rem, 1.1vw, 0.85rem);
+            font-size: clamp(0.7rem, 1vw, 0.8rem);
             font-weight: 800;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
             margin-bottom: 8px;
             text-transform: uppercase;
             border-bottom: 1px solid rgba(31, 181, 255, 0.2);
-            padding-bottom: 6px;
+            padding-bottom: 5px;
             flex-shrink: 0;
         }
 
@@ -454,7 +443,7 @@
         }
 
         .products-scroll-area::-webkit-scrollbar {
-            width: 5px;
+            width: 4px;
         }
 
         .products-scroll-area::-webkit-scrollbar-track {
@@ -465,57 +454,57 @@
         .products-scroll-area::-webkit-scrollbar-thumb {
             background: #1fb5ff;
             border-radius: 10px;
-            box-shadow: 0 0 8px rgba(31, 181, 255, 0.8);
+            box-shadow: 0 0 6px rgba(31, 181, 255, 0.8);
         }
 
-        /* СІТКА ВЕРТИКАЛЬНИХ КАРТОК ПРОДУКТІВ */
+        /* СІТКА ПРОДУКТІВ */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 8px;
         }
 
         .product-card-vertical {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(31, 181, 255, 0.2);
-            border-radius: 12px;
-            padding: 12px 8px;
+            border-radius: 10px;
+            padding: 8px 6px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             justify-content: center;
             transition: all 0.25s ease;
-            height: clamp(100px, 13vh, 120px);
+            height: clamp(80px, 11vh, 105px);
         }
 
         .product-card-vertical:hover {
             background: rgba(31, 181, 255, 0.12);
             border-color: rgba(31, 181, 255, 0.7);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(31, 181, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(31, 181, 255, 0.2);
         }
 
         .product-card-icon {
-            width: 26px;
-            height: 26px;
+            width: 22px;
+            height: 22px;
             stroke: #1fb5ff;
-            margin-bottom: 6px;
-            filter: drop-shadow(0 0 6px rgba(31, 181, 255, 0.5));
+            margin-bottom: 4px;
+            filter: drop-shadow(0 0 5px rgba(31, 181, 255, 0.5));
         }
 
         .product-name {
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(0.68rem, 1vw, 0.75rem);
+            font-size: clamp(0.62rem, 0.9vw, 0.72rem);
             font-weight: 700;
             line-height: 1.1;
         }
 
         .product-sub {
             color: #8b949e;
-            font-size: clamp(0.58rem, 0.8vw, 0.62rem);
-            margin-top: 4px;
+            font-size: clamp(0.52rem, 0.75vw, 0.6rem);
+            margin-top: 3px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -523,37 +512,19 @@
         }
 
         /* ------------------------------------
-           АДАПТИВНІСТЬ ПІД ЕКРАНИ
+           ФУТЕР (ВІДОКРЕМЛЕНИЙ)
         ------------------------------------ */
-        @media (max-width: 850px) {
-            .categories-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        @media (max-width: 520px) {
-            .categories-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            }
-            .content-container {
-                margin-top: clamp(60px, 10vh, 85px);
-            }
-        }
-
-        /* Футер */
         footer {
-            padding-bottom: 8px;
+            padding-bottom: 10px;
             padding-top: 4px;
             text-align: center;
             color: #ffffff;
-            font-size: 0.68rem;
+            font-size: clamp(0.6rem, 0.8vw, 0.68rem);
             opacity: 0;
             animation: fadeInFooter 1s ease forwards 5.2s;
             z-index: 5;
             flex-shrink: 0;
+            width: 100%;
         }
 
         .footer-info {
@@ -571,17 +542,23 @@
         @keyframes fadeInFooter {
             to { opacity: 1; }
         }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- СПЛИВАЮЧИЙ БАННЕР ВСТАНОВЛЕННЯ (ПЛАВАЄ ЗВЕРХУ) -->
+    <!-- СПЛИВАЮЧИЙ БАННЕР ВСТАНОВЛЕННЯ -->
     <div class="install-banner" id="installBanner">
         <div class="banner-left">
             <img src="https://weebwe.io/assets/weebwe.webp" alt="App Icon" class="banner-icon">
             <div class="banner-text">
                 <span class="banner-title">Додаток Weebwe</span>
-                <span class="banner-sub">Швидкий доступ з робочого столу</span>
+                <span class="banner-sub">Швидкий доступ</span>
             </div>
         </div>
         <div class="banner-actions">
@@ -590,7 +567,7 @@
         </div>
     </div>
 
-    <!-- МОДАЛЬНЕ ВІКНО ПІДКАЗКИ ДЛЯ БРАУЗЕРА -->
+    <!-- МОДАЛЬНЕ ВІКНО ПІДКАЗКИ -->
     <div class="install-guide-modal" id="installModal">
         <div class="modal-box">
             <div class="modal-title">ЯК ВСТАНОВИТИ WEEBWE</div>
@@ -616,10 +593,9 @@
         <!-- Контейнер категорій -->
         <div class="content-container">
 
-            <!-- 7 Категорій -->
+            <!-- 7 Категорій В ОДИН РЯДОК -->
             <div class="categories-grid">
 
-                <!-- 1. Всі продукти (Основні) -->
                 <div class="category-card all-products" onclick="openCategory('all', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
@@ -631,7 +607,6 @@
                     <div class="card-desc">Продукти</div>
                 </div>
 
-                <!-- 2. Games -->
                 <div class="category-card" onclick="openCategory('games', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="6" y1="12" x2="10" y2="12"></line>
@@ -644,7 +619,6 @@
                     <div class="card-desc">Ігри</div>
                 </div>
 
-                <!-- 3. Services -->
                 <div class="category-card" onclick="openCategory('services', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="2" y="2" width="20" height="8" rx="2"></rect>
@@ -656,7 +630,6 @@
                     <div class="card-desc">Хмара</div>
                 </div>
 
-                <!-- 4. Development -->
                 <div class="category-card" onclick="openCategory('dev', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="16 18 22 12 16 6"></polyline>
@@ -666,7 +639,6 @@
                     <div class="card-desc">Розробка</div>
                 </div>
 
-                <!-- 5. Apps -->
                 <div class="category-card" onclick="openCategory('apps', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="5" y="2" width="14" height="20" rx="2"></rect>
@@ -676,7 +648,6 @@
                     <div class="card-desc">Сервіси</div>
                 </div>
 
-                <!-- 6. DOCS (Новий) -->
                 <div class="category-card" onclick="openCategory('docs', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -688,7 +659,6 @@
                     <div class="card-desc">Документи</div>
                 </div>
 
-                <!-- 7. CONTACTS (Новий) -->
                 <div class="category-card" onclick="openCategory('contacts', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
@@ -724,7 +694,6 @@
     </footer>
 
     <script>
-        // БАЗА ДАНИХ
         const mainProducts = {
             games: [
                 { name: "Cyber Quest", desc: "Мобільна RPG Web3", icon: "gamepad" },
@@ -752,7 +721,6 @@
             ]
         };
 
-        // Окремі структури для Документів і Контактів (не відображаються у "ВСІ")
         const extraCategories = {
             docs: [
                 { name: "Terms of Service", desc: "Умови використання", icon: "file" },
@@ -789,7 +757,6 @@
             let itemsToDisplay = [];
             if (catKey === 'all') {
                 header.innerText = 'ВСІ ПРОДУКТИ WEEBWE';
-                // Тільки основні продукти (без docs та contacts)
                 Object.values(mainProducts).forEach(arr => itemsToDisplay.push(...arr));
             } else if (extraCategories[catKey]) {
                 header.innerText = catKey === 'docs' ? 'ДОКУМЕНТИ' : 'КОНТАКТИ ТА ЗВ\'ЯЗОК';
@@ -847,7 +814,6 @@
 
         installBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
-                // Якщо браузер має готовий системний діалог
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 deferredPrompt = null;
@@ -855,7 +821,6 @@
                     banner.classList.remove('show');
                 }
             } else {
-                // Якщо браузер не генерує підказку (iOS Safari або десктоп без підтримки)
                 showInstallInstructions();
             }
         });
