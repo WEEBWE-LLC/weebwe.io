@@ -22,9 +22,16 @@
     <style>
         /* CSS Змінні з фірмовими SVG-курсорами */
         :root {
+            /* Фірмова Синя Стрілочка (Default Cursor) */
             --cursor-default: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'><path d='M4 4L12 24L16 15L25 11L4 4Z' fill='%230094FE' stroke='%23FFFFFF' stroke-width='2' stroke-linejoin='round'/></svg>") 4 4, auto;
+            
+            /* Ручка для посилань (Pointer Cursor) */
             --cursor-pointer: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'><path d='M10 13V5.5C10 4.67 10.67 4 11.5 4C12.33 4 13 4.67 13 5.5V12H14C14.83 12 15.5 12.67 15.5 13.5V14.5H16.5C17.33 14.5 18 15.17 18 16V17.5C18 20.54 15.54 23 12.5 23H11C7.69 23 5 20.31 5 17V14.5C5 13.67 5.67 13 6.5 13C7.08 13 7.58 13.33 7.83 13.82L10 13Z' fill='%230094FE' stroke='%23FFFFFF' stroke-width='1.8' stroke-linejoin='round'/></svg>") 8 4, pointer;
+            
+            /* Синя паличка для тексту (Text Cursor) */
             --cursor-text: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'><path d='M8 4H16M12 4V20M8 20H16' stroke='%230094FE' stroke-width='3' stroke-linecap='round'/></svg>") 12 12, text;
+            
+            /* Помаранчевий годинник (Wait Cursor) */
             --cursor-wait: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none'><circle cx='16' cy='16' r='13' fill='%230D1117' stroke='%23FF9900' stroke-width='2.5'/><path d='M16 8V16L21 21' stroke='%23FF9900' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/><circle cx='16' cy='16' r='2' fill='%23FF9900'/></svg>") 16 16, wait;
         }
 
@@ -32,6 +39,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: var(--cursor-default) !important; /* Жорстке примусове застосування синьої стрілки */
         }
 
         html, body {
@@ -45,20 +53,21 @@
             justify-content: space-between;
             align-items: center;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            cursor: var(--cursor-default);
+            cursor: var(--cursor-default) !important;
             user-select: none;
         }
 
-        /* Налаштування курсорів для інтерактивних та текстових елементів */
-        a, button, .interactive {
+        /* Ручка при наведенні на посилання / кнопки */
+        a, button, .footer-email, .brand-logo {
             cursor: var(--cursor-pointer) !important;
         }
 
-        p, div, span, h1, h2, .brand-title, .brand-slogan {
-            cursor: var(--cursor-text);
+        /* Синя текстова паличка при наведенні на текст */
+        p, .brand-title, .brand-slogan {
+            cursor: var(--cursor-text) !important;
         }
 
-        /* Стан завантаження для всього сайту */
+        /* Стан завантаження (якщо потрібен) */
         body.is-loading, body.is-loading * {
             cursor: var(--cursor-wait) !important;
         }
@@ -89,7 +98,6 @@
             user-select: none;
             opacity: 0;
             animation: introLogoSpecial 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            cursor: var(--cursor-pointer);
         }
 
         @keyframes introLogoSpecial {
@@ -110,7 +118,7 @@
             }
         }
 
-        /* Текстовий блок із центруванням елементів всередині */
+        /* Текстовий блок */
         .brand-text-block {
             display: flex;
             flex-direction: column;
@@ -152,7 +160,7 @@
             }
         }
 
-        /* Відцентрований слоган під назвою */
+        /* Відцентрований слоган */
         .brand-slogan {
             color: #ffffff;
             font-size: clamp(0.52rem, 1.5vw, 0.88rem);
@@ -217,7 +225,6 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.2s ease, text-shadow 0.2s ease;
-            cursor: var(--cursor-pointer) !important;
         }
 
         .footer-email:hover {
