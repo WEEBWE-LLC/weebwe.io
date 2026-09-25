@@ -25,7 +25,7 @@
             --cursor-default: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'><path d='M4 4L12 24L16 15L25 11L4 4Z' fill='%230094FE' stroke='%23FFFFFF' stroke-width='2' stroke-linejoin='round'/></svg>") 4 4, auto;
         }
 
-        /* Жорстке примусове застосування тільки одинського курсора для всіх елементів */
+        /* ТІЛЬКИ ОДИН КУРСОР ДЛЯ ВСІХ ЕЛЕМЕНТІВ САЙТУ */
         *, *::before, *::after, html, body, a, button, input, p, div, span, img, svg {
             cursor: var(--cursor-default) !important;
         }
@@ -56,7 +56,7 @@
             position: relative;
         }
 
-        /* Загальний контейнер бренду (трансформується у верхню панель) */
+        /* Контейнер бренду (анімація переходу в шапку) */
         .brand-wrapper {
             display: flex;
             align-items: center;
@@ -82,7 +82,7 @@
             }
         }
 
-        /* Логотип з особливою появою */
+        /* Логотип */
         .brand-logo {
             height: clamp(60px, 12vh, 120px);
             width: auto;
@@ -109,7 +109,7 @@
             }
         }
 
-        /* Текстовий блок */
+        /* Текстовий блок бренду */
         .brand-text-block {
             display: flex;
             flex-direction: column;
@@ -118,7 +118,6 @@
             text-align: center;
         }
 
-        /* Назва компанії */
         .brand-title {
             color: #1fb5ff;
             font-family: 'Orbitron', sans-serif;
@@ -151,7 +150,6 @@
             }
         }
 
-        /* Слоган */
         .brand-slogan {
             color: #ffffff;
             font-size: clamp(0.52rem, 1.5vw, 0.88rem);
@@ -179,80 +177,24 @@
             }
         }
 
-        /* Контейнер продуктів піджатий впритул до верхньої панелі */
-        .products-wrapper {
+        /* Сітка з 5 категоріями піджата під верхню панель */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
             width: 100%;
-            max-width: 1100px;
-            margin-top: 85px; /* Піджато до верхньої панелі */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            max-width: 1250px;
+            margin-top: 85px; /* Піджато впритул до верхньої панелі */
             opacity: 0;
             transform: translateY(20px);
-            animation: showProductsWrapper 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 4.8s;
+            animation: showCategories 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 4.8s;
         }
 
-        @keyframes showProductsWrapper {
+        @keyframes showCategories {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        /* Кнопка розгортання «Всі продукти» */
-        .all-products-btn {
-            background: rgba(31, 181, 255, 0.1);
-            border: 1px solid rgba(31, 181, 255, 0.4);
-            color: #ffffff;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            padding: 14px 32px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(31, 181, 255, 0.2);
-            margin-bottom: 20px;
-        }
-
-        .all-products-btn:hover, .all-products-btn.active {
-            background: rgba(31, 181, 255, 0.25);
-            border-color: #1fb5ff;
-            box-shadow: 0 0 25px rgba(31, 181, 255, 0.5);
-            transform: scale(1.03);
-        }
-
-        .arrow-icon {
-            width: 18px;
-            height: 18px;
-            stroke: #1fb5ff;
-            transition: transform 0.4s ease;
-        }
-
-        .all-products-btn.active .arrow-icon {
-            transform: rotate(180deg);
-        }
-
-        /* Сітка категорій */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            width: 100%;
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
-        }
-
-        .categories-grid.open {
-            max-height: 1200px; /* Достатня висота для розгортання */
-            opacity: 1;
-            margin-top: 10px;
         }
 
         /* Картка категорії */
@@ -260,13 +202,13 @@
             background: rgba(13, 17, 23, 0.8);
             border: 1px solid rgba(31, 181, 255, 0.2);
             border-radius: 14px;
-            padding: 20px 15px;
+            padding: 20px 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
 
@@ -274,56 +216,87 @@
             border-color: rgba(31, 181, 255, 0.6);
             box-shadow: 0 8px 25px rgba(31, 181, 255, 0.2);
             background: rgba(13, 17, 23, 0.95);
+            transform: translateY(-4px);
+        }
+
+        /* Особливий стиль для картки "Всі продукти" */
+        .category-card.all-products {
+            background: rgba(31, 181, 255, 0.1);
+            border-color: rgba(31, 181, 255, 0.4);
+        }
+
+        .category-card.all-products:hover {
+            background: rgba(31, 181, 255, 0.2);
         }
 
         .card-icon {
-            width: 42px;
-            height: 42px;
-            margin-bottom: 12px;
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
             stroke: #1fb5ff;
             filter: drop-shadow(0 0 8px rgba(31, 181, 255, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover .card-icon {
+            transform: scale(1.1);
         }
 
         .card-title {
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 800;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             margin-bottom: 6px;
         }
 
         .card-desc {
             color: #8b949e;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             line-height: 1.3;
-            margin-bottom: 12px;
         }
 
-        /* Список конкретних продуктів всередині категорії */
+        /* Іконка стрілочки підказки для розгортання */
+        .expand-hint {
+            margin-top: 10px;
+            width: 16px;
+            height: 16px;
+            stroke: #1fb5ff;
+            transition: transform 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .category-card.expanded .expand-hint {
+            transform: rotate(180deg);
+            opacity: 1;
+        }
+
+        /* Список продуктів, який розгортається під кожною категорією */
         .sub-products-list {
             width: 100%;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease, opacity 0.3s ease;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.3s ease;
             opacity: 0;
-            border-top: 1px solid rgba(31, 181, 255, 0.15);
+            border-top: 0px solid rgba(31, 181, 255, 0.15);
             padding-top: 0;
             margin-top: 0;
             text-align: left;
         }
 
         .category-card.expanded .sub-products-list {
-            max-height: 250px;
+            max-height: 280px; /* Висота розгортання */
             opacity: 1;
             padding-top: 10px;
             margin-top: 10px;
+            border-top-width: 1px;
         }
 
         .product-item {
             color: #1fb5ff;
-            font-size: 0.78rem;
-            padding: 5px 0;
+            font-size: 0.75rem;
+            padding: 4px 0;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -340,17 +313,23 @@
         }
 
         /* Адаптивність */
-        @media (max-width: 900px) {
+        @media (max-width: 1050px) {
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
             .categories-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (max-width: 500px) {
+        @media (max-width: 450px) {
             .categories-grid {
                 grid-template-columns: 1fr;
             }
-            .products-wrapper {
+            .categories-grid {
                 margin-top: 95px;
             }
         }
@@ -412,89 +391,119 @@
             </div>
         </div>
 
-        <!-- Секція продуктів піджата догори -->
-        <div class="products-wrapper">
-            <!-- Кнопка «Всі продукти» -->
-            <button class="all-products-btn" id="toggleProductsBtn">
-                <span>ВСІ ПРОДУКТИ</span>
-                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Сітка з 5 категоріями (включаючи ВСІ ПРОДУКТИ першим пунктом) -->
+        <div class="categories-grid">
+
+            <!-- 1. ВСІ ПРОДУКТИ -->
+            <div class="category-card all-products" onclick="toggleCategory(this)">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                </svg>
+                <div class="card-title">ВСІ ПРОДУКТИ</div>
+                <div class="card-desc">Повний перелік розробок</div>
+                
+                <svg class="expand-hint" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
-            </button>
 
-            <!-- Сітка категорій -->
-            <div class="categories-grid" id="categoriesGrid">
-                
-                <!-- 1. GAMES -->
-                <div class="category-card" onclick="toggleCategory(this)">
-                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="6" y1="12" x2="10" y2="12"></line>
-                        <line x1="8" y1="10" x2="8" y2="14"></line>
-                        <circle cx="15" cy="13" r="1" fill="#1fb5ff"></circle>
-                        <circle cx="18" cy="11" r="1" fill="#1fb5ff"></circle>
-                        <rect x="2" y="6" width="20" height="12" rx="6"></rect>
-                    </svg>
-                    <div class="card-title">GAMES</div>
-                    <div class="card-desc">Ігри нового покоління</div>
-                    
-                    <div class="sub-products-list">
-                        <div class="product-item">Cyber Quest (Mobile)</div>
-                        <div class="product-item">Neat Tap (Telegram)</div>
-                        <div class="product-item">Weebwe Arena (PC)</div>
-                    </div>
+                <div class="sub-products-list">
+                    <div class="product-item">Cyber Quest</div>
+                    <div class="product-item">Neat Tap</div>
+                    <div class="product-item">Weebwe Cloud</div>
+                    <div class="product-item">AI Suite</div>
+                    <div class="product-item">Custom Web Systems</div>
+                    <div class="product-item">Weebwe Vault</div>
                 </div>
-
-                <!-- 2. SERVICES -->
-                <div class="category-card" onclick="toggleCategory(this)">
-                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                        <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                        <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                    </svg>
-                    <div class="card-title">SERVICES</div>
-                    <div class="card-desc">Хмарні рішення та AI</div>
-                    
-                    <div class="sub-products-list">
-                        <div class="product-item">Weebwe Cloud Node</div>
-                        <div class="product-item">AI Automation Suite</div>
-                        <div class="product-item">Secure Auth API</div>
-                    </div>
-                </div>
-
-                <!-- 3. DEVELOPMENT -->
-                <div class="category-card" onclick="toggleCategory(this)">
-                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="16 18 22 12 16 6"></polyline>
-                        <polyline points="8 6 2 12 8 18"></polyline>
-                    </svg>
-                    <div class="card-title">DEVELOPMENT</div>
-                    <div class="card-desc">Кастомна веб-розробка</div>
-                    
-                    <div class="sub-products-list">
-                        <div class="product-item">Custom Web Systems</div>
-                        <div class="product-item">UI/UX Cyber Design</div>
-                        <div class="product-item">Turnkey Dev-Lab</div>
-                    </div>
-                </div>
-
-                <!-- 4. APPS -->
-                <div class="category-card" onclick="toggleCategory(this)">
-                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                    </svg>
-                    <div class="card-title">APPS</div>
-                    <div class="card-desc">Мобільні додаткові сервіси</div>
-                    
-                    <div class="sub-products-list">
-                        <div class="product-item">Weebwe Vault App</div>
-                        <div class="product-item">Smart Eco-Control</div>
-                        <div class="product-item">Task Organizer Pro</div>
-                    </div>
-                </div>
-
             </div>
+
+            <!-- 2. GAMES -->
+            <div class="category-card" onclick="toggleCategory(this)">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="6" y1="12" x2="10" y2="12"></line>
+                    <line x1="8" y1="10" x2="8" y2="14"></line>
+                    <circle cx="15" cy="13" r="1" fill="#1fb5ff"></circle>
+                    <circle cx="18" cy="11" r="1" fill="#1fb5ff"></circle>
+                    <rect x="2" y="6" width="20" height="12" rx="6"></rect>
+                </svg>
+                <div class="card-title">GAMES</div>
+                <div class="card-desc">Ігри нового покоління</div>
+                
+                <svg class="expand-hint" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+
+                <div class="sub-products-list">
+                    <div class="product-item">Cyber Quest (Mobile)</div>
+                    <div class="product-item">Neat Tap (Telegram)</div>
+                    <div class="product-item">Weebwe Arena (PC)</div>
+                </div>
+            </div>
+
+            <!-- 3. SERVICES -->
+            <div class="category-card" onclick="toggleCategory(this)">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                    <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                    <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+                <div class="card-title">SERVICES</div>
+                <div class="card-desc">Хмарні рішення та AI</div>
+                
+                <svg class="expand-hint" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+
+                <div class="sub-products-list">
+                    <div class="product-item">Weebwe Cloud Node</div>
+                    <div class="product-item">AI Automation Suite</div>
+                    <div class="product-item">Secure Auth API</div>
+                </div>
+            </div>
+
+            <!-- 4. DEVELOPMENT -->
+            <div class="category-card" onclick="toggleCategory(this)">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+                <div class="card-title">DEVELOPMENT</div>
+                <div class="card-desc">Кастомна веб-розробка</div>
+                
+                <svg class="expand-hint" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+
+                <div class="sub-products-list">
+                    <div class="product-item">Custom Web Systems</div>
+                    <div class="product-item">UI/UX Cyber Design</div>
+                    <div class="product-item">Turnkey Dev-Lab</div>
+                </div>
+            </div>
+
+            <!-- 5. APPS -->
+            <div class="category-card" onclick="toggleCategory(this)">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+                <div class="card-title">APPS</div>
+                <div class="card-desc">Мобільні сервіси</div>
+                
+                <svg class="expand-hint" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+
+                <div class="sub-products-list">
+                    <div class="product-item">Weebwe Vault App</div>
+                    <div class="product-item">Smart Eco-Control</div>
+                    <div class="product-item">Task Organizer Pro</div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -507,19 +516,10 @@
         </div>
     </footer>
 
-    <!-- Скрипт інтерактивності -->
+    <!-- JS Скрипт для розгортання картки при натисканні -->
     <script>
-        const toggleBtn = document.getElementById('toggleProductsBtn');
-        const categoriesGrid = document.getElementById('categoriesGrid');
-
-        // Перемикач блоку "Всі продукти"
-        toggleBtn.addEventListener('click', () => {
-            toggleBtn.classList.toggle('active');
-            categoriesGrid.classList.toggle('open');
-        });
-
-        // Перемикач конкретних категорій (розгортання списку продуктів)
         function toggleCategory(card) {
+            // Розгортає/згортає обрану картку
             card.classList.toggle('expanded');
         }
     </script>
