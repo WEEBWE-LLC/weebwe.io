@@ -5,36 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Weebwe</title>
 
-    <!-- Фавіконки та іконки для пристроїв -->
+    <!-- Фавіконки -->
     <link rel="icon" type="image/svg+xml" href="https://weebwe.io/assets/favicons/favicon.svg">
     <link rel="icon" type="image/x-icon" href="https://weebwe.io/assets/favicons/favicon.ico">
     <link rel="shortcut icon" href="https://weebwe.io/assets/favicons/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="https://weebwe.io/assets/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="https://weebwe.io/assets/favicons/favicon-96x96.png">
     <link rel="manifest" href="https://weebwe.io/assets/favicons/site.webmanifest">
     <meta name="apple-mobile-web-app-title" content="Weebwe">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Футуристичний шрифт Orbitron -->
+    <!-- Шрифт Orbitron -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* CSS Змінна з ЄДИНИМ фірмовим курсором-стрілочкою */
         :root {
             --cursor-default: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'><path d='M4 4L12 24L16 15L25 11L4 4Z' fill='%230094FE' stroke='%23FFFFFF' stroke-width='2' stroke-linejoin='round'/></svg>") 4 4, auto;
         }
 
-        /* ТІЛЬКИ ОДИН КУРСОР ДЛЯ ВСІХ ЕЛЕМЕНТІВ */
         *, *::before, *::after, html, body, a, button, input, p, div, span, img, svg {
             cursor: var(--cursor-default) !important;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
+        /* Сторінка фіксована строго в межах одного екрана */
         html, body {
             width: 100vw;
             height: 100vh;
             height: 100dvh;
-            overflow-x: hidden;
+            overflow: hidden;
             background-color: #000000;
             display: flex;
             flex-direction: column;
@@ -42,9 +44,105 @@
             align-items: center;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             user-select: none;
+            position: relative;
         }
 
-        /* Центральна секція */
+        /* ------------------------------------
+           ВЕРХНІЙ БАННЕР ВСТАНОВЛЕННЯ ДОДАТКА
+        ------------------------------------ */
+        .install-banner {
+            position: fixed;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(94%, 600px);
+            background: rgba(13, 23, 33, 0.95);
+            border: 1px solid rgba(31, 181, 255, 0.5);
+            border-radius: 12px;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(31, 181, 255, 0.25);
+            transition: top 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .install-banner.show {
+            top: 10px;
+        }
+
+        .banner-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .banner-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+        }
+
+        .banner-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .banner-title {
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 800;
+        }
+
+        .banner-sub {
+            color: #8b949e;
+            font-size: 0.68rem;
+        }
+
+        .banner-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .install-btn {
+            background: #1fb5ff;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .install-btn:hover {
+            box-shadow: 0 0 12px rgba(31, 181, 255, 0.8);
+            transform: scale(1.03);
+        }
+
+        .close-banner {
+            background: transparent;
+            border: none;
+            color: #8b949e;
+            font-size: 1.1rem;
+            padding: 0 4px;
+            line-height: 1;
+        }
+
+        .close-banner:hover {
+            color: #ffffff;
+        }
+
+
+        /* ------------------------------------
+           ОСНОВНА ЧАСТИНА
+        ------------------------------------ */
         .main-content {
             flex: 1;
             display: flex;
@@ -52,21 +150,22 @@
             align-items: center;
             justify-content: flex-start;
             width: 100%;
-            padding: 20px;
+            height: 100%;
+            padding: 10px 15px;
             position: relative;
+            overflow: hidden;
         }
 
-        /* Контейнер бренду (анімація переходу в верхню панель) */
+        /* Шапка бренду з анімацією */
         .brand-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(15px, 3.5vw, 28px);
+            gap: clamp(10px, 2.5vw, 20px);
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: auto;
             z-index: 10;
             animation: moveToTop 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 3.8s;
         }
@@ -77,14 +176,13 @@
                 transform: translate(-50%, -50%) scale(1);
             }
             100% {
-                top: 15px;
-                transform: translate(-50%, 0) scale(0.68);
+                top: 55px; /* Захищений відступ від верхнього баннера */
+                transform: translate(-50%, 0) scale(0.65);
             }
         }
 
-        /* Логотип */
         .brand-logo {
-            height: clamp(60px, 12vh, 120px);
+            height: clamp(50px, 10vh, 90px);
             width: auto;
             object-fit: contain;
             opacity: 0;
@@ -99,31 +197,29 @@
             }
             50% {
                 opacity: 1;
-                transform: scale(1.12) rotate(0deg);
-                filter: blur(0px) drop-shadow(0 0 45px rgba(31, 181, 255, 0.95));
+                transform: scale(1.1) rotate(0deg);
+                filter: blur(0px) drop-shadow(0 0 40px rgba(31, 181, 255, 0.95));
             }
             100% {
                 opacity: 1;
                 transform: scale(1) rotate(0deg);
-                filter: blur(0px) drop-shadow(0 0 20px rgba(31, 181, 255, 0.45));
+                filter: blur(0px) drop-shadow(0 0 18px rgba(31, 181, 255, 0.4));
             }
         }
 
-        /* Текстовий блок бренду */
         .brand-text-block {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             text-align: center;
         }
 
         .brand-title {
             color: #1fb5ff;
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.8rem, 5.5vw, 4rem);
+            font-size: clamp(1.6rem, 4.5vw, 3.2rem);
             font-weight: 900;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             line-height: 1;
             white-space: nowrap;
             opacity: 0;
@@ -133,18 +229,12 @@
         @keyframes revealTitle {
             0% {
                 opacity: 0;
-                transform: translateX(-15px) scale(0.95);
-                filter: blur(12px);
-                text-shadow: 0 0 40px rgba(31, 181, 255, 1);
-            }
-            50% {
-                opacity: 0.8;
-                filter: blur(2px);
-                text-shadow: 0 0 25px rgba(31, 181, 255, 0.9);
+                transform: translateX(-15px);
+                filter: blur(10px);
             }
             100% {
                 opacity: 1;
-                transform: translateX(0) scale(1);
+                transform: translateX(0);
                 filter: blur(0px);
                 text-shadow: 0 0 15px rgba(31, 181, 255, 0.4);
             }
@@ -152,41 +242,33 @@
 
         .brand-slogan {
             color: #ffffff;
-            font-size: clamp(0.52rem, 1.5vw, 0.88rem);
+            font-size: clamp(0.48rem, 1.2vw, 0.75rem);
             font-weight: 600;
             letter-spacing: 2px;
-            margin-top: 10px;
+            margin-top: 6px;
             text-transform: uppercase;
             white-space: nowrap;
             opacity: 0;
-            width: 100%;
-            text-align: center;
             animation: revealSlogan 1.2s ease forwards 3.2s;
         }
 
         @keyframes revealSlogan {
-            0% {
-                opacity: 0;
-                transform: translateY(8px);
-                filter: blur(6px);
-            }
-            100% {
+            to {
                 opacity: 0.9;
-                transform: translateY(0);
-                filter: blur(0);
             }
         }
 
-        /* Контейнер навігації з безпечним відступом від верхньої панелі */
+        /* Головний контейнер з карточками */
         .content-container {
             width: 100%;
             max-width: 1200px;
-            margin-top: 110px; /* Достатній відступ, щоб не наїжджало на панель */
+            margin-top: clamp(105px, 15vh, 125px);
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: calc(100vh - 160px);
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(15px);
             animation: showContent 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 4.8s;
         }
 
@@ -197,242 +279,239 @@
             }
         }
 
-        /* Сітка з 5 категоріями */
+        /* ------------------------------------
+           СІТКА 5 КАТЕГОРІЙ
+        ------------------------------------ */
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 15px;
+            gap: 10px;
             width: 100%;
+            flex-shrink: 0;
         }
 
-        /* Картка категорії */
         .category-card {
-            background: rgba(13, 17, 23, 0.8);
-            border: 1px solid rgba(31, 181, 255, 0.2);
-            border-radius: 14px;
-            padding: 16px 12px;
+            background: rgba(13, 17, 23, 0.85);
+            border: 1px solid rgba(31, 181, 255, 0.25);
+            border-radius: 12px;
+            padding: clamp(8px, 1.5vh, 14px) 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             backdrop-filter: blur(10px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
+            transition: all 0.25s ease;
+            height: clamp(85px, 12vh, 110px);
+            justify-content: center;
         }
 
         .category-card:hover {
-            border-color: rgba(31, 181, 255, 0.6);
-            box-shadow: 0 8px 25px rgba(31, 181, 255, 0.2);
+            border-color: rgba(31, 181, 255, 0.7);
+            box-shadow: 0 4px 20px rgba(31, 181, 255, 0.25);
             background: rgba(13, 17, 23, 0.95);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .category-card.active {
             border-color: #1fb5ff;
-            background: rgba(31, 181, 255, 0.15);
-            box-shadow: 0 0 20px rgba(31, 181, 255, 0.4);
+            background: rgba(31, 181, 255, 0.18);
+            box-shadow: 0 0 18px rgba(31, 181, 255, 0.45);
         }
 
-        /* Стиль для "Всі продукти" */
         .category-card.all-products {
             background: rgba(31, 181, 255, 0.08);
-            border-color: rgba(31, 181, 255, 0.35);
         }
 
         .card-icon {
-            width: 36px;
-            height: 36px;
-            margin-bottom: 8px;
+            width: clamp(22px, 3vh, 32px);
+            height: clamp(22px, 3vh, 32px);
+            margin-bottom: 6px;
             stroke: #1fb5ff;
-            filter: drop-shadow(0 0 8px rgba(31, 181, 255, 0.5));
-            transition: transform 0.3s ease;
-        }
-
-        .category-card:hover .card-icon {
-            transform: scale(1.1);
+            filter: drop-shadow(0 0 6px rgba(31, 181, 255, 0.5));
         }
 
         .card-title {
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
+            font-size: clamp(0.65rem, 1.1vw, 0.82rem);
             font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
+            letter-spacing: 0.5px;
         }
 
         .card-desc {
             color: #8b949e;
-            font-size: 0.72rem;
-            line-height: 1.2;
+            font-size: clamp(0.58rem, 0.9vw, 0.68rem);
+            margin-top: 2px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        /* Окреме висувне меню продуктів на решту екрану */
+        /* ------------------------------------
+           ВИСУВНА ПАНЕЛЬ З ВЕРТИКАЛЬНИМИ КАРТАМИ ПРОДУКТІВ
+        ------------------------------------ */
         .products-menu-panel {
             width: 100%;
-            margin-top: 20px;
-            background: rgba(13, 17, 23, 0.85);
+            margin-top: 12px;
+            background: rgba(13, 17, 23, 0.9);
             border: 1px solid rgba(31, 181, 255, 0.3);
-            border-radius: 16px;
-            padding: 0;
+            border-radius: 14px;
             backdrop-filter: blur(15px);
-            max-height: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
             opacity: 0;
-            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, padding 0.4s ease, border-color 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-height: 0;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
         .products-menu-panel.open {
-            max-height: 52vh; /* Оптимальна висота меню під категорії */
             opacity: 1;
-            padding: 24px;
-            border-color: rgba(31, 181, 255, 0.5);
+            max-height: 100%;
+            padding: 14px;
         }
 
-        /* Заголовок всередині меню продуктів */
         .menu-header {
             color: #1fb5ff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: 800;
-            letter-spacing: 1.5px;
-            margin-bottom: 16px;
+            letter-spacing: 1.2px;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             border-bottom: 1px solid rgba(31, 181, 255, 0.2);
-            padding-bottom: 10px;
+            padding-bottom: 6px;
+            flex-shrink: 0;
         }
 
-        /* Внутрішній блок прокрутки для багатьох продуктів */
+        /* Зона прокручування всередині меню */
         .products-scroll-area {
-            max-height: calc(52vh - 80px);
+            flex: 1;
             overflow-y: auto;
-            padding-right: 8px;
+            padding-right: 4px;
         }
 
-        /* Стилізований неоновий скроллбар */
         .products-scroll-area::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
 
         .products-scroll-area::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border-radius: 10px;
         }
 
         .products-scroll-area::-webkit-scrollbar-thumb {
             background: #1fb5ff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(31, 181, 255, 0.8);
+            box-shadow: 0 0 8px rgba(31, 181, 255, 0.8);
         }
 
-        /* Сітка карт продуктів всередині висувного меню */
+        /* СІТКА ВЕРТИКАЛЬНИХ КАРТОК ПРОДУКТІВ (ТАКІ Ж ЯК КАТЕГОРІЇ) */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
         }
 
-        .product-card {
+        /* Вертикальна картка продукту */
+        .product-card-vertical {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(31, 181, 255, 0.15);
-            border-radius: 10px;
-            padding: 14px;
+            border: 1px solid rgba(31, 181, 255, 0.2);
+            border-radius: 12px;
+            padding: 14px 10px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
+            text-align: center;
+            justify-content: center;
             transition: all 0.25s ease;
+            height: 120px;
         }
 
-        .product-card:hover {
-            background: rgba(31, 181, 255, 0.1);
-            border-color: rgba(31, 181, 255, 0.5);
-            transform: translateX(4px);
+        .product-card-vertical:hover {
+            background: rgba(31, 181, 255, 0.12);
+            border-color: rgba(31, 181, 255, 0.7);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(31, 181, 255, 0.2);
         }
 
         .product-card-icon {
             width: 28px;
             height: 28px;
             stroke: #1fb5ff;
-            flex-shrink: 0;
-        }
-
-        .product-info {
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 6px rgba(31, 181, 255, 0.5));
         }
 
         .product-name {
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.82rem;
+            font-size: 0.75rem;
             font-weight: 700;
+            line-height: 1.1;
         }
 
         .product-sub {
             color: #8b949e;
-            font-size: 0.7rem;
-            margin-top: 2px;
+            font-size: 0.62rem;
+            margin-top: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        /* Адаптивність */
-        @media (max-width: 1000px) {
+        /* ------------------------------------
+           АДАПТИВНІСТЬ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ
+        ------------------------------------ */
+        @media (max-width: 768px) {
             .categories-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            }
+            .product-card-vertical {
+                height: 110px;
+                padding: 10px 6px;
+            }
         }
 
-        @media (max-width: 650px) {
+        @media (max-width: 480px) {
             .categories-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             .content-container {
-                margin-top: 120px;
-            }
-            .products-grid {
-                grid-template-columns: 1fr;
+                margin-top: 110px;
             }
         }
 
         /* Футер */
         footer {
-            padding-bottom: clamp(16px, 3vh, 24px);
-            padding-left: 10px;
-            padding-right: 10px;
+            padding-bottom: 10px;
+            padding-top: 5px;
             text-align: center;
             color: #ffffff;
-            font-size: clamp(0.68rem, 1.8vw, 0.82rem);
-            letter-spacing: 0.5px;
+            font-size: 0.7rem;
             opacity: 0;
             animation: fadeInFooter 1s ease forwards 5.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
             z-index: 5;
+            flex-shrink: 0;
         }
 
         .footer-info {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 6px 10px;
-            line-height: 1.3;
-        }
-
-        .footer-info .divider {
-            color: #1fb5ff;
-            opacity: 0.6;
+            gap: 8px;
         }
 
         .footer-email {
             color: #1fb5ff;
             text-decoration: none;
-            font-weight: 500;
         }
 
         @keyframes fadeInFooter {
@@ -442,10 +521,25 @@
 </head>
 <body>
 
-    <div></div>
+    <!-- ВЕРХНІЙ БАННЕР ПРОПОЗИЦІЇ ВСТАНОВЛЕННЯ -->
+    <div class="install-banner" id="installBanner">
+        <div class="banner-left">
+            <img src="https://weebwe.io/assets/weebwe.webp" alt="App Icon" class="banner-icon">
+            <div class="banner-text">
+                <span class="banner-title">Додаток Weebwe</span>
+                <span class="banner-sub">Встановіть для швидкого доступу</span>
+            </div>
+        </div>
+        <div class="banner-actions">
+            <button class="install-btn" id="installBtn">Встановити</button>
+            <button class="close-banner" onclick="closeBanner()">✕</button>
+        </div>
+    </div>
 
+    <!-- ОСНОВНИЙ КОНТЕНТ (В МЕЖАХ ЕКРАНА) -->
     <div class="main-content">
-        <!-- Шапка бренду -->
+
+        <!-- Логотип та Назва -->
         <div class="brand-wrapper">
             <img src="https://weebwe.io/assets/weebwe.webp" alt="Weebwe Logo" class="brand-logo">
             <div class="brand-text-block">
@@ -454,13 +548,13 @@
             </div>
         </div>
 
-        <!-- Контейнер категорій та висувного меню з продуктами -->
+        <!-- Контейнер з категоріями та висувним блоком продуктів -->
         <div class="content-container">
-            
-            <!-- Сітка 5 категорій -->
+
+            <!-- 5 Категорій -->
             <div class="categories-grid">
 
-                <!-- 1. ВСІ ПРОДУКТИ -->
+                <!-- 1. Всі продукти -->
                 <div class="category-card all-products" onclick="openCategory('all', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
@@ -468,11 +562,11 @@
                         <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
                         <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
                     </svg>
-                    <div class="card-title">ВСІ ПРОДУКТИ</div>
-                    <div class="card-desc">Повний калог</div>
+                    <div class="card-title">ВСІ</div>
+                    <div class="card-desc">Повний каталог</div>
                 </div>
 
-                <!-- 2. GAMES -->
+                <!-- 2. Games -->
                 <div class="category-card" onclick="openCategory('games', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="6" y1="12" x2="10" y2="12"></line>
@@ -485,11 +579,11 @@
                     <div class="card-desc">Ігри нового рівня</div>
                 </div>
 
-                <!-- 3. SERVICES -->
+                <!-- 3. Services -->
                 <div class="category-card" onclick="openCategory('services', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                        <rect x="2" y="2" width="20" height="8" rx="2"></rect>
+                        <rect x="2" y="14" width="20" height="8" rx="2"></rect>
                         <line x1="6" y1="6" x2="6.01" y2="6"></line>
                         <line x1="6" y1="18" x2="6.01" y2="18"></line>
                     </svg>
@@ -497,20 +591,20 @@
                     <div class="card-desc">Хмарні рішення</div>
                 </div>
 
-                <!-- 4. DEVELOPMENT -->
+                <!-- 4. Development -->
                 <div class="category-card" onclick="openCategory('dev', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="16 18 22 12 16 6"></polyline>
                         <polyline points="8 6 2 12 8 18"></polyline>
                     </svg>
-                    <div class="card-title">DEVELOPMENT</div>
+                    <div class="card-title">DEV</div>
                     <div class="card-desc">Веб-розробка</div>
                 </div>
 
-                <!-- 5. APPS -->
+                <!-- 5. Apps -->
                 <div class="category-card" onclick="openCategory('apps', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                        <rect x="5" y="2" width="14" height="20" rx="2"></rect>
                         <line x1="12" y1="18" x2="12.01" y2="18"></line>
                     </svg>
                     <div class="card-title">APPS</div>
@@ -519,67 +613,67 @@
 
             </div>
 
-            <!-- Окреме висувне меню продуктів на решту екрану -->
+            <!-- Висувна панель продуктів -->
             <div class="products-menu-panel" id="menuPanel">
                 <div class="menu-header" id="menuHeader">Продукти</div>
                 
                 <div class="products-scroll-area">
                     <div class="products-grid" id="productsGrid">
-                        <!-- Динамічні карти продуктів генеруються JS -->
+                        <!-- Динамічно наповнюється через JS -->
                     </div>
                 </div>
             </div>
 
         </div>
+
     </div>
 
     <!-- Футер -->
     <footer>
         <div class="footer-info">
-            <span>&copy; 2026 WEEBWE LLC. Усі права захищено.</span>
-            <span class="divider">•</span>
-            <span>Зв'язок: <a href="mailto:hello@weebwe.io" class="footer-email">hello@weebwe.io</a></span>
+            <span>&copy; 2026 WEEBWE LLC</span>
+            <span>•</span>
+            <a href="mailto:hello@weebwe.io" class="footer-email">hello@weebwe.io</a>
         </div>
     </footer>
 
-    <!-- JS Логіка висувного меню продуктів -->
     <script>
-        // База даних продуктів по категоріях
+        // Data продуктів
         const productsData = {
             games: [
-                { name: "Cyber Quest", desc: "Мобільна RPG з елементами Web3", icon: "gamepad" },
-                { name: "Neat Tap", desc: "Популярний Telegram тапалка-клікер", icon: "gamepad" },
-                { name: "Weebwe Arena", desc: "Мережевий файтинг для PC", icon: "gamepad" },
-                { name: "Pixel Space", desc: "Космічна 2D стратегія", icon: "gamepad" }
+                { name: "Cyber Quest", desc: "Мобільна RPG Web3", icon: "gamepad" },
+                { name: "Neat Tap", desc: "Telegram тапалка", icon: "gamepad" },
+                { name: "Weebwe Arena", desc: "Файтинг для PC", icon: "gamepad" },
+                { name: "Pixel Space", desc: "2D стратегія", icon: "gamepad" }
             ],
             services: [
-                { name: "Weebwe Cloud Node", desc: "Високошвидкісні хмарні сервери", icon: "server" },
-                { name: "AI Automation Suite", desc: "Інструменти штучного інтелекту", icon: "server" },
-                { name: "Secure Auth API", desc: "Безпечна авторизація користувачів", icon: "server" },
-                { name: "Data Guard Pro", desc: "Шифрування та захист даних", icon: "server" }
+                { name: "Cloud Node", desc: "Хмарні сервери", icon: "server" },
+                { name: "AI Suite", desc: "Інструменти ШІ", icon: "server" },
+                { name: "Auth API", desc: "Захист авторизації", icon: "server" },
+                { name: "Data Guard", desc: "Шифрування даних", icon: "server" }
             ],
             dev: [
-                { name: "Custom Web Systems", desc: "Розробка складних веб-платформ", icon: "code" },
-                { name: "UI/UX Cyber Design", desc: "Футуристичний дизайн інтерфейсів", icon: "code" },
-                { name: "Turnkey Dev-Lab", desc: "Створення IT-продуктів «під ключ»", icon: "code" },
-                { name: "Smart Contracts", desc: "Аудит та розробка смарт-контрактів", icon: "code" }
+                { name: "Web Systems", desc: "Складні веб-платформи", icon: "code" },
+                { name: "Cyber UI/UX", desc: "Дизайн інтерфейсів", icon: "code" },
+                { name: "Turnkey Lab", desc: "Розробка «під ключ»", icon: "code" },
+                { name: "Smart Contracts", desc: "Смарт-контракти", icon: "code" }
             ],
             apps: [
-                { name: "Weebwe Vault App", desc: "Захищений крипто-гаманець", icon: "phone" },
-                { name: "Smart Eco-Control", desc: "Керування розумними пристроями", icon: "phone" },
-                { name: "Task Organizer Pro", desc: "Планувальник завдань для команд", icon: "phone" },
-                { name: "Health Sync", desc: "Додаток відстеження стану здоров'я", icon: "phone" }
+                { name: "Vault App", desc: "Крипто-гаманець", icon: "phone" },
+                { name: "Smart Control", desc: "Розумний дім", icon: "phone" },
+                { name: "Task Organizer", desc: "Планування завдань", icon: "phone" },
+                { name: "Health Sync", desc: "Моніторинг здоров'я", icon: "phone" }
             ]
         };
 
         let currentActiveCat = null;
 
+        // Перемикання категорій
         function openCategory(catKey, cardElem) {
             const panel = document.getElementById('menuPanel');
             const grid = document.getElementById('productsGrid');
             const header = document.getElementById('menuHeader');
 
-            // Якщо клікнули по вже активній картці - закриваємо меню
             if (currentActiveCat === catKey) {
                 panel.classList.remove('open');
                 cardElem.classList.remove('active');
@@ -587,12 +681,10 @@
                 return;
             }
 
-            // Знімаємо активний стан з усіх каток
             document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
             cardElem.classList.add('active');
             currentActiveCat = catKey;
 
-            // Формуємо масив продуктів
             let itemsToDisplay = [];
             if (catKey === 'all') {
                 header.innerText = 'ВСІ ПРОДУКТИ WEEBWE';
@@ -602,24 +694,20 @@
                 itemsToDisplay = productsData[catKey] || [];
             }
 
-            // Наповнюємо сітку картами продуктів
+            // Наповнення ВЕРТИКАЛЬНИМИ картами
             grid.innerHTML = itemsToDisplay.map(item => `
-                <div class="product-card">
+                <div class="product-card-vertical">
                     <svg class="product-card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         ${getIconSvg(item.icon)}
                     </svg>
-                    <div class="product-info">
-                        <span class="product-name">${item.name}</span>
-                        <span class="product-sub">${item.desc}</span>
-                    </div>
+                    <span class="product-name">${item.name}</span>
+                    <span class="product-sub">${item.desc}</span>
                 </div>
             `).join('');
 
-            // Відкриваємо панель
             panel.classList.add('open');
         }
 
-        // Допоміжна функція іконок для продуктів
         function getIconSvg(type) {
             switch(type) {
                 case 'gamepad': return '<rect x="2" y="6" width="20" height="12" rx="6"></rect><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1" fill="#1fb5ff"></circle><circle cx="18" cy="11" r="1" fill="#1fb5ff"></circle>';
@@ -627,6 +715,45 @@
                 case 'code': return '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>';
                 default: return '<rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line>';
             }
+        }
+
+        /* ------------------------------------
+           ЛОГІКА ВСТАНОВЛЕННЯ ДОДАТКА (PWA)
+        ------------------------------------ */
+        let deferredPrompt;
+        const banner = document.getElementById('installBanner');
+        const installBtn = document.getElementById('installBtn');
+
+        // Перевіряємо чи сайт відкритий НЕ як додаток
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+        if (!isStandalone) {
+            // Показуємо баннер через 5.5 секунд (після анімації завантаження бренду)
+            setTimeout(() => {
+                banner.classList.add('show');
+            }, 5500);
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                if (outcome === 'accepted') {
+                    banner.classList.remove('show');
+                }
+            } else {
+                alert('Щоб встановити додаток, скористайтеся меню браузера "Додати на головний екран".');
+            }
+        });
+
+        function closeBanner() {
+            banner.classList.remove('show');
         }
     </script>
 </body>
