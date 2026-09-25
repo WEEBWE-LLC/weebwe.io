@@ -1,108 +1,233 @@
 <!DOCTYPE html>
-<html lang="uk" class="h-full bg-[#0a0d14]">
+<html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WEEBWE LLC // Modern Software & Infrastructure</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Weebwe</title>
 
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://weebwe.io/">
+    <!-- Фавіконки та іконки для пристроїв з ваших налаштувань -->
+    <link rel="icon" type="image/svg+xml" href="https://weebwe.io/assets/favicons/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="https://weebwe.io/assets/favicons/favicon.ico">
+    <link rel="shortcut icon" href="https://weebwe.io/assets/favicons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://weebwe.io/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://weebwe.io/assets/favicons/favicon-96x96.png">
+    <link rel="manifest" href="https://weebwe.io/assets/favicons/site.webmanifest">
+    <meta name="apple-mobile-web-app-title" content="Weebwe">
 
-  <!-- 1. ПІДКТЮЧЕННЯ FAVICONS ТА MANIFEST ПРЯМО ЧЕРЕЗ ДОМЕН WEEBWE.IO -->
-  <link rel="icon" type="image/x-icon" href="https://weebwe.io/assets/favicons/favicon.ico">
-  <link rel="icon" type="image/svg+xml" href="https://weebwe.io/assets/favicons/favicon.svg">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://weebwe.io/assets/favicons/apple-touch-icon.png">
-  <link rel="manifest" href="https://weebwe.io/assets/favicons/site.webmanifest">
+    <!-- Футуристичний шрифт Orbitron -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
 
-  <!-- 2. OPEN GRAPH / SOCIAL PREVIEW (ДЛЯ TELEGRAM, DISCORD, X) -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://weebwe.io/">
-  <meta property="og:title" content="WEEBWE LLC // Next-Gen Systems">
-  <meta property="og:description" content="Architecting high-load software solutions and modern infrastructure.">
-  <meta property="og:image" content="https://weebwe.io/assets/og-image.webp">
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              dark: '#0a0d14',
-              card: '#121824',
-              cyan: '#00d2ff',
-              blue: '#0066ff'
-            }
-          }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      }
-    }
-  </script>
-  <style>
-    body {
-      height: 100dvh;
-      overflow: hidden;
-    }
-  </style>
+
+        html, body {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        /* Центральна секція */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 15px;
+        }
+
+        /* Загальний контейнер бренду */
+        .brand-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(10px, 3vw, 20px);
+        }
+
+        /* Особлива поява логотипа з неоновим спалахом */
+        .brand-logo {
+            height: clamp(42px, 8vh, 85px);
+            width: auto;
+            object-fit: contain;
+            user-select: none;
+            opacity: 0;
+            animation: introLogoSpecial 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes introLogoSpecial {
+            0% {
+                opacity: 0;
+                transform: scale(0.4) rotate(-5deg);
+                filter: blur(15px) drop-shadow(0 0 0px rgba(31, 181, 255, 0));
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.12) rotate(0deg);
+                filter: blur(0px) drop-shadow(0 0 45px rgba(31, 181, 255, 0.95));
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+                filter: blur(0px) drop-shadow(0 0 20px rgba(31, 181, 255, 0.45));
+            }
+        }
+
+        /* Блок із текстом */
+        .brand-text-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        /* Поява назви компанії */
+        .brand-title {
+            color: #1fb5ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 5.5vw, 4rem);
+            font-weight: 900;
+            letter-spacing: 3px;
+            line-height: 1;
+            white-space: nowrap;
+            opacity: 0;
+            
+            animation: revealTitle 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards 2.2s;
+        }
+
+        @keyframes revealTitle {
+            0% {
+                opacity: 0;
+                transform: translateX(-15px) scale(0.95);
+                filter: blur(12px);
+                text-shadow: 0 0 40px rgba(31, 181, 255, 1);
+            }
+            50% {
+                opacity: 0.8;
+                filter: blur(2px);
+                text-shadow: 0 0 25px rgba(31, 181, 255, 0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                filter: blur(0px);
+                text-shadow: 0 0 15px rgba(31, 181, 255, 0.4);
+            }
+        }
+
+        /* Поява слогану */
+        .brand-slogan {
+            color: #ffffff;
+            font-size: clamp(0.52rem, 1.5vw, 0.88rem);
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-top: 8px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            opacity: 0;
+            
+            animation: revealSlogan 1.2s ease forwards 3.2s;
+        }
+
+        @keyframes revealSlogan {
+            0% {
+                opacity: 0;
+                transform: translateY(8px);
+                filter: blur(6px);
+            }
+            100% {
+                opacity: 0.9;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* Футер */
+        footer {
+            padding-bottom: clamp(16px, 3vh, 24px);
+            padding-left: 10px;
+            padding-right: 10px;
+            text-align: center;
+            color: #ffffff;
+            font-size: clamp(0.68rem, 1.8vw, 0.82rem);
+            letter-spacing: 0.5px;
+            opacity: 0;
+            animation: fadeInFooter 1s ease forwards 3.6s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            width: 100%;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 6px 10px;
+            line-height: 1.3;
+        }
+
+        .footer-info .divider {
+            color: #1fb5ff;
+            opacity: 0.6;
+        }
+
+        .footer-email {
+            color: #1fb5ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease, text-shadow 0.2s ease;
+        }
+
+        .footer-email:hover {
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(31, 181, 255, 0.8);
+        }
+
+        @keyframes fadeInFooter {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
-<body class="bg-brand-dark text-slate-100 flex flex-col justify-between p-6 sm:p-10 select-none antialiased relative">
+<body>
 
-  <!-- Background Ambient Glow -->
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-950/30 via-brand-dark to-brand-dark pointer-events-none"></div>
+    <div></div>
 
-  <!-- Header -->
-  <header class="relative z-10 flex justify-between items-center max-w-6xl mx-auto w-full border-b border-slate-800/60 pb-4">
-    <div class="flex items-center space-x-3">
-      <!-- Логотип через основний домен -->
-      <img src="https://weebwe.io/assets/weebwe.webp" 
-           alt="WEEBWE Logo" 
-           class="h-9 w-auto drop-shadow-[0_0_12px_rgba(0,210,255,0.4)]">
-    </div>
-    
-    <div class="flex items-center space-x-2 bg-brand-card/80 border border-slate-800 px-3 py-1.5 rounded-full backdrop-blur-sm">
-      <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-      <span class="text-xs font-mono text-cyan-400">WEEBWE.IO // ONLINE</span>
-    </div>
-  </header>
-
-  <!-- Hero Main Area -->
-  <main class="relative z-10 flex flex-col items-center justify-center text-center max-w-3xl mx-auto my-auto px-4">
-    
-    <!-- Центральне неонове лого -->
-    <div class="relative mb-6">
-      <img src="https://weebwe.io/assets/weebwe.webp" 
-           alt="WEEBWE LLC Brand Asset" 
-           class="h-28 sm:h-36 w-auto mx-auto drop-shadow-[0_0_25px_rgba(0,210,255,0.5)] transition-all duration-500 hover:scale-105">
+    <!-- Блок з логотипом та текстом -->
+    <div class="main-content">
+        <div class="brand-wrapper">
+            <img src="https://weebwe.io/assets/weebwe.webp" alt="Weebwe Logo" class="brand-logo">
+            <div class="brand-text-block">
+                <div class="brand-title">WEEBWE</div>
+                <div class="brand-slogan">INNOVATIONS CREATING THE FUTURE!</div>
+            </div>
+        </div>
     </div>
 
-    <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-500 mb-4">
-      WEEBWE LLC
-    </h1>
-
-    <p class="text-slate-400 text-sm sm:text-base max-w-xl font-light leading-relaxed mb-8">
-      Architecting high-load cloud solutions, modern software systems, and resilient digital infrastructure.
-    </p>
-
-    <!-- Кнопка зв'язку -->
-    <a href="mailto:admin@weebwe.io" 
-       class="inline-flex items-center space-x-2 px-6 py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-sm shadow-[0_0_20px_rgba(0,210,255,0.3)] hover:shadow-[0_0_30px_rgba(0,210,255,0.6)] transition-all transform hover:-translate-y-0.5">
-      <span>Contact Engineering</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-      </svg>
-    </a>
-  </main>
-
-  <!-- Footer -->
-  <footer class="relative z-10 flex flex-col sm:flex-row justify-between items-center max-w-6xl mx-auto w-full text-xs text-slate-500 font-mono border-t border-slate-800/60 pt-4">
-    <div>&copy; 2026 WEEBWE LLC. All rights reserved.</div>
-    <div class="mt-2 sm:mt-0 flex space-x-4">
-      <a href="mailto:admin@weebwe.io" class="hover:text-cyan-400 transition-colors">admin@weebwe.io</a>
-      <span>//</span>
-      <a href="https://weebwe.io" class="text-slate-400 hover:text-cyan-400 transition-colors">weebwe.io</a>
-    </div>
-  </footer>
+    <!-- Футер -->
+    <footer>
+        <div class="footer-info">
+            <span>&copy; 2026 WEEBWE LLC. Усі права захищено.</span>
+            <span class="divider">•</span>
+            <span>Зв'язок: <a href="mailto:hello@weebwe.io" class="footer-email">hello@weebwe.io</a></span>
+        </div>
+    </footer>
 
 </body>
 </html>
