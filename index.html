@@ -31,7 +31,7 @@
             padding: 0;
         }
 
-        /* Сторінка фіксована строго в межах одного екрана */
+        /* Сторінка строго в межах одного екрана */
         html, body {
             width: 100vw;
             height: 100vh;
@@ -48,41 +48,42 @@
         }
 
         /* ------------------------------------
-           ВЕРХНІЙ БАННЕР ВСТАНОВЛЕННЯ ДОДАТКА
+           СПЛИВАЮЧЕ ПОВІДОМЛЕННЯ ВСТАНОВЛЕННЯ (OVERLAY, БЕЗ ЗСУВУ)
         ------------------------------------ */
         .install-banner {
             position: fixed;
-            top: -70px;
+            top: 12px;
             left: 50%;
-            transform: translateX(-50%);
-            width: min(94%, 600px);
-            background: rgba(13, 23, 33, 0.95);
-            border: 1px solid rgba(31, 181, 255, 0.5);
-            border-radius: 12px;
-            padding: 8px 14px;
+            transform: translateX(-50%) translateY(-120%);
+            width: min(92%, 520px);
+            background: rgba(10, 15, 24, 0.92);
+            border: 1px solid rgba(31, 181, 255, 0.6);
+            border-radius: 14px;
+            padding: 10px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            z-index: 1000;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 4px 20px rgba(31, 181, 255, 0.25);
-            transition: top 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 9999;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(31, 181, 255, 0.25);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .install-banner.show {
-            top: 10px;
+            transform: translateX(-50%) translateY(0);
         }
 
         .banner-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .banner-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            object-fit: contain;
         }
 
         .banner-text {
@@ -93,45 +94,45 @@
         .banner-title {
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.78rem;
+            font-size: clamp(0.75rem, 1.2vw, 0.85rem);
             font-weight: 800;
         }
 
         .banner-sub {
             color: #8b949e;
-            font-size: 0.68rem;
+            font-size: clamp(0.65rem, 1vw, 0.72rem);
         }
 
         .banner-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .install-btn {
             background: #1fb5ff;
             color: #000;
             border: none;
-            border-radius: 6px;
-            padding: 6px 12px;
+            border-radius: 8px;
+            padding: 7px 14px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.7rem;
+            font-size: clamp(0.65rem, 1vw, 0.75rem);
             font-weight: 800;
             text-transform: uppercase;
             transition: all 0.2s ease;
         }
 
         .install-btn:hover {
-            box-shadow: 0 0 12px rgba(31, 181, 255, 0.8);
-            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(31, 181, 255, 0.8);
+            transform: scale(1.04);
         }
 
         .close-banner {
             background: transparent;
             border: none;
             color: #8b949e;
-            font-size: 1.1rem;
-            padding: 0 4px;
+            font-size: 1.2rem;
+            padding: 2px 6px;
             line-height: 1;
         }
 
@@ -139,9 +140,67 @@
             color: #ffffff;
         }
 
+        /* Підказка щодо встановлення для Safari / інших браузерів */
+        .install-guide-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .install-guide-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: #0d1117;
+            border: 1px solid rgba(31, 181, 255, 0.5);
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(31, 181, 255, 0.3);
+        }
+
+        .modal-title {
+            color: #1fb5ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .modal-desc {
+            color: #c9d1d9;
+            font-size: 0.82rem;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .modal-close-btn {
+            background: rgba(31, 181, 255, 0.2);
+            color: #1fb5ff;
+            border: 1px solid #1fb5ff;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
 
         /* ------------------------------------
-           ОСНОВНА ЧАСТИНА
+           ОСНОВНА ЧАСТИНА (ЦЕНТР)
         ------------------------------------ */
         .main-content {
             flex: 1;
@@ -176,7 +235,7 @@
                 transform: translate(-50%, -50%) scale(1);
             }
             100% {
-                top: 55px; /* Захищений відступ від верхнього баннера */
+                top: clamp(15px, 3vh, 30px);
                 transform: translate(-50%, 0) scale(0.65);
             }
         }
@@ -258,15 +317,15 @@
             }
         }
 
-        /* Головний контейнер з карточками */
+        /* Контейнер для категорій та продуктів */
         .content-container {
             width: 100%;
             max-width: 1200px;
-            margin-top: clamp(105px, 15vh, 125px);
+            margin-top: clamp(65px, 11vh, 95px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: calc(100vh - 160px);
+            height: calc(100vh - 125px);
             opacity: 0;
             transform: translateY(15px);
             animation: showContent 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 4.8s;
@@ -280,12 +339,12 @@
         }
 
         /* ------------------------------------
-           СІТКА 5 КАТЕГОРІЙ
+           СІТКА 7 КАТЕГОРІЙ (МАШТАБУЄТЬСЯ)
         ------------------------------------ */
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(7, 1fr);
+            gap: clamp(6px, 1vw, 10px);
             width: 100%;
             flex-shrink: 0;
         }
@@ -294,14 +353,14 @@
             background: rgba(13, 17, 23, 0.85);
             border: 1px solid rgba(31, 181, 255, 0.25);
             border-radius: 12px;
-            padding: clamp(8px, 1.5vh, 14px) 8px;
+            padding: clamp(6px, 1.2vh, 12px) 4px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             backdrop-filter: blur(10px);
             transition: all 0.25s ease;
-            height: clamp(85px, 12vh, 110px);
+            height: clamp(80px, 11vh, 105px);
             justify-content: center;
         }
 
@@ -323,9 +382,9 @@
         }
 
         .card-icon {
-            width: clamp(22px, 3vh, 32px);
-            height: clamp(22px, 3vh, 32px);
-            margin-bottom: 6px;
+            width: clamp(20px, 2.6vh, 28px);
+            height: clamp(20px, 2.6vh, 28px);
+            margin-bottom: 4px;
             stroke: #1fb5ff;
             filter: drop-shadow(0 0 6px rgba(31, 181, 255, 0.5));
         }
@@ -333,14 +392,15 @@
         .card-title {
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(0.65rem, 1.1vw, 0.82rem);
+            font-size: clamp(0.55rem, 0.9vw, 0.75rem);
             font-weight: 800;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
+            line-height: 1.1;
         }
 
         .card-desc {
             color: #8b949e;
-            font-size: clamp(0.58rem, 0.9vw, 0.68rem);
+            font-size: clamp(0.5rem, 0.75vw, 0.62rem);
             margin-top: 2px;
             display: -webkit-box;
             -webkit-line-clamp: 1;
@@ -349,11 +409,11 @@
         }
 
         /* ------------------------------------
-           ВИСУВНА ПАНЕЛЬ З ВЕРТИКАЛЬНИМИ КАРТАМИ ПРОДУКТІВ
+           ВИСУВНА ПАНЕЛЬ ПРОДУКТІВ
         ------------------------------------ */
         .products-menu-panel {
             width: 100%;
-            margin-top: 12px;
+            margin-top: 10px;
             background: rgba(13, 17, 23, 0.9);
             border: 1px solid rgba(31, 181, 255, 0.3);
             border-radius: 14px;
@@ -371,23 +431,22 @@
         .products-menu-panel.open {
             opacity: 1;
             max-height: 100%;
-            padding: 14px;
+            padding: 12px;
         }
 
         .menu-header {
             color: #1fb5ff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 1.1vw, 0.85rem);
             font-weight: 800;
             letter-spacing: 1.2px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             border-bottom: 1px solid rgba(31, 181, 255, 0.2);
             padding-bottom: 6px;
             flex-shrink: 0;
         }
 
-        /* Зона прокручування всередині меню */
         .products-scroll-area {
             flex: 1;
             overflow-y: auto;
@@ -409,26 +468,25 @@
             box-shadow: 0 0 8px rgba(31, 181, 255, 0.8);
         }
 
-        /* СІТКА ВЕРТИКАЛЬНИХ КАРТОК ПРОДУКТІВ (ТАКІ Ж ЯК КАТЕГОРІЇ) */
+        /* СІТКА ВЕРТИКАЛЬНИХ КАРТОК ПРОДУКТІВ */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             gap: 10px;
         }
 
-        /* Вертикальна картка продукту */
         .product-card-vertical {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(31, 181, 255, 0.2);
             border-radius: 12px;
-            padding: 14px 10px;
+            padding: 12px 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             justify-content: center;
             transition: all 0.25s ease;
-            height: 120px;
+            height: clamp(100px, 13vh, 120px);
         }
 
         .product-card-vertical:hover {
@@ -439,24 +497,24 @@
         }
 
         .product-card-icon {
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             stroke: #1fb5ff;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             filter: drop-shadow(0 0 6px rgba(31, 181, 255, 0.5));
         }
 
         .product-name {
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
+            font-size: clamp(0.68rem, 1vw, 0.75rem);
             font-weight: 700;
             line-height: 1.1;
         }
 
         .product-sub {
             color: #8b949e;
-            font-size: 0.62rem;
+            font-size: clamp(0.58rem, 0.8vw, 0.62rem);
             margin-top: 4px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -465,37 +523,33 @@
         }
 
         /* ------------------------------------
-           АДАПТИВНІСТЬ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ
+           АДАПТИВНІСТЬ ПІД ЕКРАНИ
         ------------------------------------ */
-        @media (max-width: 768px) {
+        @media (max-width: 850px) {
+            .categories-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 520px) {
             .categories-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
             .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-            }
-            .product-card-vertical {
-                height: 110px;
-                padding: 10px 6px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .categories-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
             .content-container {
-                margin-top: 110px;
+                margin-top: clamp(60px, 10vh, 85px);
             }
         }
 
         /* Футер */
         footer {
-            padding-bottom: 10px;
-            padding-top: 5px;
+            padding-bottom: 8px;
+            padding-top: 4px;
             text-align: center;
             color: #ffffff;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             opacity: 0;
             animation: fadeInFooter 1s ease forwards 5.2s;
             z-index: 5;
@@ -521,13 +575,13 @@
 </head>
 <body>
 
-    <!-- ВЕРХНІЙ БАННЕР ПРОПОЗИЦІЇ ВСТАНОВЛЕННЯ -->
+    <!-- СПЛИВАЮЧИЙ БАННЕР ВСТАНОВЛЕННЯ (ПЛАВАЄ ЗВЕРХУ) -->
     <div class="install-banner" id="installBanner">
         <div class="banner-left">
             <img src="https://weebwe.io/assets/weebwe.webp" alt="App Icon" class="banner-icon">
             <div class="banner-text">
                 <span class="banner-title">Додаток Weebwe</span>
-                <span class="banner-sub">Встановіть для швидкого доступу</span>
+                <span class="banner-sub">Швидкий доступ з робочого столу</span>
             </div>
         </div>
         <div class="banner-actions">
@@ -536,10 +590,21 @@
         </div>
     </div>
 
-    <!-- ОСНОВНИЙ КОНТЕНТ (В МЕЖАХ ЕКРАНА) -->
+    <!-- МОДАЛЬНЕ ВІКНО ПІДКАЗКИ ДЛЯ БРАУЗЕРА -->
+    <div class="install-guide-modal" id="installModal">
+        <div class="modal-box">
+            <div class="modal-title">ЯК ВСТАНОВИТИ WEEBWE</div>
+            <div class="modal-desc" id="modalDesc">
+                Натисніть «Поділитися» або відкрийте меню браузера (⋮ / ⚙) та оберіть пункт <b>«Додати на початковий екран»</b> або <b>«Встановити додаток»</b>.
+            </div>
+            <button class="modal-close-btn" onclick="closeModal()">ЗРОЗУМІЛО</button>
+        </div>
+    </div>
+
+    <!-- ОСНОВНИЙ КОНТЕНТ -->
     <div class="main-content">
 
-        <!-- Логотип та Назва -->
+        <!-- Бренд -->
         <div class="brand-wrapper">
             <img src="https://weebwe.io/assets/weebwe.webp" alt="Weebwe Logo" class="brand-logo">
             <div class="brand-text-block">
@@ -548,13 +613,13 @@
             </div>
         </div>
 
-        <!-- Контейнер з категоріями та висувним блоком продуктів -->
+        <!-- Контейнер категорій -->
         <div class="content-container">
 
-            <!-- 5 Категорій -->
+            <!-- 7 Категорій -->
             <div class="categories-grid">
 
-                <!-- 1. Всі продукти -->
+                <!-- 1. Всі продукти (Основні) -->
                 <div class="category-card all-products" onclick="openCategory('all', this)">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
@@ -563,7 +628,7 @@
                         <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
                     </svg>
                     <div class="card-title">ВСІ</div>
-                    <div class="card-desc">Повний каталог</div>
+                    <div class="card-desc">Продукти</div>
                 </div>
 
                 <!-- 2. Games -->
@@ -576,7 +641,7 @@
                         <rect x="2" y="6" width="20" height="12" rx="6"></rect>
                     </svg>
                     <div class="card-title">GAMES</div>
-                    <div class="card-desc">Ігри нового рівня</div>
+                    <div class="card-desc">Ігри</div>
                 </div>
 
                 <!-- 3. Services -->
@@ -588,7 +653,7 @@
                         <line x1="6" y1="18" x2="6.01" y2="18"></line>
                     </svg>
                     <div class="card-title">SERVICES</div>
-                    <div class="card-desc">Хмарні рішення</div>
+                    <div class="card-desc">Хмара</div>
                 </div>
 
                 <!-- 4. Development -->
@@ -598,7 +663,7 @@
                         <polyline points="8 6 2 12 8 18"></polyline>
                     </svg>
                     <div class="card-title">DEV</div>
-                    <div class="card-desc">Веб-розробка</div>
+                    <div class="card-desc">Розробка</div>
                 </div>
 
                 <!-- 5. Apps -->
@@ -608,18 +673,39 @@
                         <line x1="12" y1="18" x2="12.01" y2="18"></line>
                     </svg>
                     <div class="card-title">APPS</div>
-                    <div class="card-desc">Мобільні сервіси</div>
+                    <div class="card-desc">Сервіси</div>
+                </div>
+
+                <!-- 6. DOCS (Новий) -->
+                <div class="category-card" onclick="openCategory('docs', this)">
+                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                    <div class="card-title">DOCS</div>
+                    <div class="card-desc">Документи</div>
+                </div>
+
+                <!-- 7. CONTACTS (Новий) -->
+                <div class="category-card" onclick="openCategory('contacts', this)">
+                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <div class="card-title">CONTACTS</div>
+                    <div class="card-desc">Контакти</div>
                 </div>
 
             </div>
 
-            <!-- Висувна панель продуктів -->
+            <!-- Висувне меню -->
             <div class="products-menu-panel" id="menuPanel">
                 <div class="menu-header" id="menuHeader">Продукти</div>
                 
                 <div class="products-scroll-area">
                     <div class="products-grid" id="productsGrid">
-                        <!-- Динамічно наповнюється через JS -->
+                        <!-- Динамічні вертикальні карти -->
                     </div>
                 </div>
             </div>
@@ -638,8 +724,8 @@
     </footer>
 
     <script>
-        // Data продуктів
-        const productsData = {
+        // БАЗА ДАНИХ
+        const mainProducts = {
             games: [
                 { name: "Cyber Quest", desc: "Мобільна RPG Web3", icon: "gamepad" },
                 { name: "Neat Tap", desc: "Telegram тапалка", icon: "gamepad" },
@@ -666,9 +752,24 @@
             ]
         };
 
+        // Окремі структури для Документів і Контактів (не відображаються у "ВСІ")
+        const extraCategories = {
+            docs: [
+                { name: "Terms of Service", desc: "Умови використання", icon: "file" },
+                { name: "Privacy Policy", desc: "Політика конфіденційності", icon: "file" },
+                { name: "Whitepaper", desc: "Технічна документація", icon: "file" },
+                { name: "Brand Guidelines", desc: "Ґайдлайн бренду", icon: "file" }
+            ],
+            contacts: [
+                { name: "Support Team", desc: "Технічна підтримка 24/7", icon: "mail" },
+                { name: "Business Inquiry", desc: "Партнерство та інвестиції", icon: "mail" },
+                { name: "Telegram Community", desc: "Офіційний чат спільноти", icon: "chat" },
+                { name: "Official Twitter", desc: "Новини та анонси", icon: "chat" }
+            ]
+        };
+
         let currentActiveCat = null;
 
-        // Перемикання категорій
         function openCategory(catKey, cardElem) {
             const panel = document.getElementById('menuPanel');
             const grid = document.getElementById('productsGrid');
@@ -688,13 +789,16 @@
             let itemsToDisplay = [];
             if (catKey === 'all') {
                 header.innerText = 'ВСІ ПРОДУКТИ WEEBWE';
-                Object.values(productsData).forEach(arr => itemsToDisplay.push(...arr));
+                // Тільки основні продукти (без docs та contacts)
+                Object.values(mainProducts).forEach(arr => itemsToDisplay.push(...arr));
+            } else if (extraCategories[catKey]) {
+                header.innerText = catKey === 'docs' ? 'ДОКУМЕНТИ' : 'КОНТАКТИ ТА ЗВ\'ЯЗОК';
+                itemsToDisplay = extraCategories[catKey];
             } else {
                 header.innerText = `ПРОДУКТИ: ${catKey.toUpperCase()}`;
-                itemsToDisplay = productsData[catKey] || [];
+                itemsToDisplay = mainProducts[catKey] || [];
             }
 
-            // Наповнення ВЕРТИКАЛЬНИМИ картами
             grid.innerHTML = itemsToDisplay.map(item => `
                 <div class="product-card-vertical">
                     <svg class="product-card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -713,25 +817,27 @@
                 case 'gamepad': return '<rect x="2" y="6" width="20" height="12" rx="6"></rect><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1" fill="#1fb5ff"></circle><circle cx="18" cy="11" r="1" fill="#1fb5ff"></circle>';
                 case 'server': return '<rect x="2" y="2" width="20" height="8" rx="2"></rect><rect x="2" y="14" width="20" height="8" rx="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line>';
                 case 'code': return '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>';
+                case 'file': return '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>';
+                case 'mail': return '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>';
+                case 'chat': return '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>';
                 default: return '<rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line>';
             }
         }
 
         /* ------------------------------------
-           ЛОГІКА ВСТАНОВЛЕННЯ ДОДАТКА (PWA)
+           НАДІЙНА ЛОГІКА ВСТАНОВЛЕННЯ PWA
         ------------------------------------ */
         let deferredPrompt;
         const banner = document.getElementById('installBanner');
         const installBtn = document.getElementById('installBtn');
+        const modal = document.getElementById('installModal');
 
-        // Перевіряємо чи сайт відкритий НЕ як додаток
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
         if (!isStandalone) {
-            // Показуємо баннер через 5.5 секунд (після анімації завантаження бренду)
             setTimeout(() => {
                 banner.classList.add('show');
-            }, 5500);
+            }, 5000);
         }
 
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -741,6 +847,7 @@
 
         installBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
+                // Якщо браузер має готовий системний діалог
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 deferredPrompt = null;
@@ -748,9 +855,27 @@
                     banner.classList.remove('show');
                 }
             } else {
-                alert('Щоб встановити додаток, скористайтеся меню браузера "Додати на головний екран".');
+                // Якщо браузер не генерує підказку (iOS Safari або десктоп без підтримки)
+                showInstallInstructions();
             }
         });
+
+        function showInstallInstructions() {
+            const modalDesc = document.getElementById('modalDesc');
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+            if (isIOS) {
+                modalDesc.innerHTML = 'Натисніть кнопку <b>«Поділитися»</b> (<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1fb5ff" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>) знизу в Safari та оберіть <b>«На початковий екран»</b>.';
+            } else {
+                modalDesc.innerHTML = 'Натисніть меню браузера (<b>⋮</b> або <b>⚙</b>) у верхньому кутку та оберіть <b>«Встановити додаток»</b> або <b>«Додати на робочий стіл»</b>.';
+            }
+
+            modal.classList.add('open');
+        }
+
+        function closeModal() {
+            modal.classList.remove('open');
+        }
 
         function closeBanner() {
             banner.classList.remove('show');
