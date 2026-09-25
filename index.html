@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Weebwe</title>
 
-    <!-- Фавіконки та іконки для пристроїв з ваших налаштувань -->
+    <!-- Фавіконки та іконки для пристроїв -->
     <link rel="icon" type="image/svg+xml" href="https://weebwe.io/assets/favicons/favicon.svg">
     <link rel="icon" type="image/x-icon" href="https://weebwe.io/assets/favicons/favicon.ico">
     <link rel="shortcut icon" href="https://weebwe.io/assets/favicons/favicon.ico">
@@ -54,12 +54,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(10px, 3vw, 20px);
+            gap: clamp(15px, 3.5vw, 28px);
         }
 
-        /* Особлива поява логотипа з неоновим спалахом */
+        /* Збільшений логотип з особливою появою */
         .brand-logo {
-            height: clamp(42px, 8vh, 85px);
+            height: clamp(60px, 12vh, 120px); /* Збільшено висоту */
             width: auto;
             object-fit: contain;
             user-select: none;
@@ -85,12 +85,13 @@
             }
         }
 
-        /* Блок із текстом */
+        /* Текстовий блок із центруванням елементів всередині */
         .brand-text-block {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center; /* Центрування назви та слогану відносно один одного */
             justify-content: center;
+            text-align: center;
         }
 
         /* Поява назви компанії */
@@ -127,16 +128,18 @@
             }
         }
 
-        /* Поява слогану */
+        /* Відцентрований слоган під назвою */
         .brand-slogan {
             color: #ffffff;
             font-size: clamp(0.52rem, 1.5vw, 0.88rem);
             font-weight: 600;
             letter-spacing: 2px;
-            margin-top: 8px;
+            margin-top: 10px;
             text-transform: uppercase;
             white-space: nowrap;
             opacity: 0;
+            width: 100%;
+            text-align: center;
             
             animation: revealSlogan 1.2s ease forwards 3.2s;
         }
