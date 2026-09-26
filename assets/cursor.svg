@@ -1,3 +1,52 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'>
-  <path d='M4 4L12 24L16 15L25 11L4 4Z' fill='#0094FE' stroke='#FFFFFF' stroke-width='2' stroke-linejoin='round'/>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <!-- Основний градієнт неонової лінії -->
+    <linearGradient id="neon_core" x1="4" y1="2" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00E1FF"/>
+      <stop offset="50%" stop-color="#0088FF"/>
+      <stop offset="100%" stop-color="#0044CC"/>
+    </linearGradient>
+
+    <!-- Градієнт металевої грані -->
+    <linearGradient id="metal_dark" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#222B38"/>
+      <stop offset="50%" stop-color="#10141B"/>
+      <stop offset="100%" stop-color="#06080C"/>
+    </linearGradient>
+
+    <!-- Градієнт підсвічування контуру -->
+    <linearGradient id="metal_border" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00D2FF"/>
+      <stop offset="40%" stop-color="#0066FF"/>
+      <stop offset="100%" stop-color="#002266"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Зовнішній захисний контур і металева основа -->
+  <path d="M2 2L29 13.5L18 18L21 29.5L15 22.5L10.5 28L2 2Z" 
+        fill="url(#metal_dark)" 
+        stroke="url(#metal_border)" 
+        stroke-width="1.2" 
+        stroke-linejoin="round"/>
+
+  <!-- Внутрішня дзеркальна частина -->
+  <path d="M5.5 5.5L24 13.2L16.2 16.5L18.2 24.5L14.2 19.8L10.8 23.8L5.5 5.5Z" 
+        fill="#0B0F17"/>
+
+  <!-- Y / W-подібні неонові лінії сяйва (в точності як на лого) -->
+  <!-- Основна лінія вказівника -->
+  <path d="M6 6L23.5 13.5L16 16.8L18 24.5" 
+        stroke="url(#neon_core)" 
+        stroke-width="1.8" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+
+  <!-- Внутрішнє Y-розгалуження -->
+  <path d="M16 16.8L11 23" 
+        stroke="url(#neon_core)" 
+        stroke-width="1.8" 
+        stroke-linecap="round"/>
+
+  <!-- Яскрава центральна точка (Hotspot) -->
+  <circle cx="3" cy="3" r="1.5" fill="#00E1FF"/>
 </svg>
