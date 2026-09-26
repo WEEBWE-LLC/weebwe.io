@@ -13,6 +13,7 @@
     <link rel="manifest" href="https://weebwe.io/assets/favicons/site.webmanifest">
     <meta name="apple-mobile-web-app-title" content="Weebwe">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#f5f7fa">
 
     <!-- Шрифт Orbitron -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,9 +22,20 @@
 
     <style>
         :root {
-            --cursor-default: url("https://weebwe.io/assets/cursor.svg") 4 4, auto;
+            /* Підключення окремого SVG-файлу (3 3 — це точка кліку hotspot) */
+            --cursor-default: url("assets/cursor.svg") 3 3, auto;
+            --primary-blue: #0094FE;
+            --primary-blue-hover: #007ae6;
+            --bg-color: #f5f7fa;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 148, 254, 0.25);
+            --card-border-active: rgba(0, 148, 254, 0.8);
+            --text-main: #0d1117;
+            --text-muted: #57606a;
+            --shadow-glow: 0 8px 25px rgba(0, 148, 254, 0.15);
         }
 
+        /* Примусове застосування кастомного курсора до всіх елементів */
         *, *::before, *::after, html, body, a, button, input, p, div, span, img, svg {
             cursor: var(--cursor-default) !important;
             box-sizing: border-box;
@@ -36,7 +48,10 @@
             height: 100vh;
             height: 100dvh;
             overflow: hidden;
-            background-color: #000000;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 148, 254, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(0, 148, 254, 0.05) 0%, transparent 40%);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -51,20 +66,20 @@
         ------------------------------------ */
         .install-banner {
             position: fixed;
-            top: 10px;
+            top: 12px;
             left: 50%;
-            transform: translateX(-50%) translateY(-130%);
+            transform: translateX(-50%) translateY(-150%);
             width: min(94%, 500px);
-            background: rgba(10, 15, 24, 0.94);
-            border: 1px solid rgba(31, 181, 255, 0.6);
-            border-radius: 14px;
-            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--card-border-active);
+            border-radius: 16px;
+            padding: 10px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             z-index: 9999;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(31, 181, 255, 0.25);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 148, 254, 0.15), 0 2px 10px rgba(0, 0, 0, 0.05);
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -75,14 +90,15 @@
         .banner-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .banner-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
             object-fit: contain;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         .banner-text {
@@ -91,15 +107,16 @@
         }
 
         .banner-title {
-            color: #ffffff;
+            color: var(--text-main);
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+            font-size: clamp(0.75rem, 1.3vw, 0.85rem);
             font-weight: 800;
         }
 
         .banner-sub {
-            color: #8b949e;
-            font-size: clamp(0.6rem, 1vw, 0.7rem);
+            color: var(--text-muted);
+            font-size: clamp(0.65rem, 1.1vw, 0.72rem);
+            margin-top: 1px;
         }
 
         .banner-actions {
@@ -109,31 +126,41 @@
         }
 
         .install-btn {
-            background: #1fb5ff;
-            color: #000;
+            background: var(--primary-blue);
+            color: #ffffff;
             border: none;
-            border-radius: 8px;
-            padding: 6px 12px;
+            border-radius: 10px;
+            padding: 8px 14px;
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(0.6rem, 1vw, 0.7rem);
+            font-size: clamp(0.65rem, 1.1vw, 0.75rem);
             font-weight: 800;
             text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0, 148, 254, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .install-btn:hover {
+            background: var(--primary-blue-hover);
+            transform: translateY(-1px);
         }
 
         .close-banner {
             background: transparent;
             border: none;
-            color: #8b949e;
-            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-size: 1.2rem;
             padding: 2px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Підказка щодо встановлення */
+        /* Підказка щодо встановлення (Модальне вікно) */
         .install-guide-modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(13, 17, 23, 0.4);
+            backdrop-filter: blur(10px);
             z-index: 10000;
             display: flex;
             align-items: center;
@@ -150,40 +177,62 @@
         }
 
         .modal-box {
-            background: #0d1117;
-            border: 1px solid rgba(31, 181, 255, 0.5);
-            border-radius: 16px;
-            padding: 20px;
-            max-width: 380px;
+            background: #ffffff;
+            border: 1px solid var(--card-border-active);
+            border-radius: 20px;
+            padding: 24px;
+            max-width: 400px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 0 30px rgba(31, 181, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 148, 254, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal-icon-badge {
+            width: 52px;
+            height: 52px;
+            background: rgba(0, 148, 254, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+        }
+
+        .modal-icon-badge svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--primary-blue);
         }
 
         .modal-title {
-            color: #1fb5ff;
+            color: var(--text-main);
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 800;
             margin-bottom: 10px;
         }
 
         .modal-desc {
-            color: #c9d1d9;
-            font-size: 0.8rem;
-            line-height: 1.4;
-            margin-bottom: 16px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
         }
 
         .modal-close-btn {
-            background: rgba(31, 181, 255, 0.2);
-            color: #1fb5ff;
-            border: 1px solid #1fb5ff;
-            border-radius: 8px;
-            padding: 8px 16px;
+            background: var(--primary-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 700;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(0, 148, 254, 0.25);
         }
 
         /* ------------------------------------
@@ -202,7 +251,7 @@
             overflow: hidden;
         }
 
-        /* Шапка бренду з анімацією */
+        /* Шапка бренду */
         .brand-wrapper {
             display: flex;
             align-items: center;
@@ -244,12 +293,12 @@
             50% {
                 opacity: 1;
                 transform: scale(1.1) rotate(0deg);
-                filter: blur(0px) drop-shadow(0 0 30px rgba(31, 181, 255, 0.95));
+                filter: blur(0px) drop-shadow(0 0 30px rgba(0, 148, 254, 0.6));
             }
             100% {
                 opacity: 1;
                 transform: scale(1) rotate(0deg);
-                filter: blur(0px) drop-shadow(0 0 15px rgba(31, 181, 255, 0.4));
+                filter: blur(0px) drop-shadow(0 0 15px rgba(0, 148, 254, 0.3));
             }
         }
 
@@ -261,7 +310,7 @@
         }
 
         .brand-title {
-            color: #1fb5ff;
+            color: var(--primary-blue);
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.4rem, 4vw, 3rem);
             font-weight: 900;
@@ -282,14 +331,14 @@
                 opacity: 1;
                 transform: translateX(0);
                 filter: blur(0px);
-                text-shadow: 0 0 15px rgba(31, 181, 255, 0.4);
+                text-shadow: 0 2px 10px rgba(0, 148, 254, 0.2);
             }
         }
 
         .brand-slogan {
-            color: #ffffff;
+            color: var(--text-main);
             font-size: clamp(0.42rem, 1vw, 0.7rem);
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 1.5px;
             margin-top: 4px;
             text-transform: uppercase;
@@ -299,10 +348,10 @@
         }
 
         @keyframes revealSlogan {
-            to { opacity: 0.9; }
+            to { opacity: 0.85; }
         }
 
-        /* Контейнер категорій та продуктів */
+        /* Контейнер категорій */
         .content-container {
             width: 100%;
             max-width: 1200px;
@@ -324,59 +373,58 @@
             }
         }
 
-        /* ------------------------------------
-           СТРОГО 1 РЯДОК ДЛЯ ВСІХ 7 КАТЕГОРІЙ
-        ------------------------------------ */
+        /* СІТКА КАТЕГОРІЙ */
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: clamp(3px, 0.8vw, 8px);
+            gap: clamp(4px, 0.8vw, 10px);
             width: 100%;
             flex-shrink: 0;
         }
 
         .category-card {
-            background: rgba(13, 17, 23, 0.85);
-            border: 1px solid rgba(31, 181, 255, 0.25);
-            border-radius: 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
             padding: clamp(4px, 1vh, 8px) 2px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
             transition: all 0.25s ease;
             height: clamp(65px, 9.5vh, 95px);
             justify-content: center;
         }
 
         .category-card:hover {
-            border-color: rgba(31, 181, 255, 0.7);
-            box-shadow: 0 4px 15px rgba(31, 181, 255, 0.25);
-            background: rgba(13, 17, 23, 0.95);
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+            background: #ffffff;
         }
 
         .category-card.active {
-            border-color: #1fb5ff;
-            background: rgba(31, 181, 255, 0.18);
-            box-shadow: 0 0 15px rgba(31, 181, 255, 0.45);
+            border-color: var(--primary-blue);
+            background: rgba(0, 148, 254, 0.08);
+            box-shadow: 0 4px 18px rgba(0, 148, 254, 0.25);
         }
 
         .category-card.all-products {
-            background: rgba(31, 181, 255, 0.08);
+            background: rgba(0, 148, 254, 0.05);
         }
 
         .card-icon {
             width: clamp(16px, 2.2vh, 26px);
             height: clamp(16px, 2.2vh, 26px);
-            margin-bottom: 2px;
-            stroke: #1fb5ff;
-            filter: drop-shadow(0 0 5px rgba(31, 181, 255, 0.5));
+            margin-bottom: 3px;
+            stroke: var(--primary-blue);
             flex-shrink: 0;
         }
 
         .card-title {
-            color: #ffffff;
+            color: var(--text-main);
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(0.42rem, 0.75vw, 0.7rem);
             font-weight: 800;
@@ -386,7 +434,7 @@
         }
 
         .card-desc {
-            color: #8b949e;
+            color: var(--text-muted);
             font-size: clamp(0.4rem, 0.65vw, 0.58rem);
             margin-top: 2px;
             white-space: nowrap;
@@ -400,12 +448,12 @@
         ------------------------------------ */
         .products-menu-panel {
             width: 100%;
-            margin-top: 8px;
+            margin-top: 10px;
             margin-bottom: 12px;
-            background: rgba(13, 17, 23, 0.9);
-            border: 1px solid rgba(31, 181, 255, 0.3);
-            border-radius: 12px;
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--card-border-active);
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
             flex: 1;
             min-height: 0;
             display: flex;
@@ -414,25 +462,25 @@
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 148, 254, 0.1);
         }
 
         .products-menu-panel.open {
             opacity: 1;
             visibility: visible;
-            padding: 10px;
+            padding: 12px;
         }
 
         .menu-header {
-            color: #1fb5ff;
+            color: var(--primary-blue);
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(0.7rem, 1vw, 0.8rem);
             font-weight: 800;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            border-bottom: 1px solid rgba(31, 181, 255, 0.2);
-            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(0, 148, 254, 0.15);
+            padding-bottom: 6px;
             flex-shrink: 0;
         }
 
@@ -443,32 +491,31 @@
         }
 
         .products-scroll-area::-webkit-scrollbar {
-            width: 4px;
+            width: 5px;
         }
 
         .products-scroll-area::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(0, 0, 0, 0.03);
             border-radius: 10px;
         }
 
         .products-scroll-area::-webkit-scrollbar-thumb {
-            background: #1fb5ff;
+            background: var(--primary-blue);
             border-radius: 10px;
-            box-shadow: 0 0 6px rgba(31, 181, 255, 0.8);
         }
 
-        /* СІТКА ПРОДУКТІВ */
+        /* СІТКА КАРТОК ПРИЛАДІВ */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+            gap: 10px;
         }
 
         .product-card-vertical {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(31, 181, 255, 0.2);
-            border-radius: 10px;
-            padding: 8px 6px;
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 10px 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -476,25 +523,25 @@
             justify-content: center;
             transition: all 0.25s ease;
             height: clamp(80px, 11vh, 105px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
 
         .product-card-vertical:hover {
-            background: rgba(31, 181, 255, 0.12);
-            border-color: rgba(31, 181, 255, 0.7);
+            background: rgba(0, 148, 254, 0.04);
+            border-color: var(--primary-blue);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(31, 181, 255, 0.2);
+            box-shadow: 0 6px 16px rgba(0, 148, 254, 0.15);
         }
 
         .product-card-icon {
             width: 22px;
             height: 22px;
-            stroke: #1fb5ff;
-            margin-bottom: 4px;
-            filter: drop-shadow(0 0 5px rgba(31, 181, 255, 0.5));
+            stroke: var(--primary-blue);
+            margin-bottom: 6px;
         }
 
         .product-name {
-            color: #ffffff;
+            color: var(--text-main);
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(0.62rem, 0.9vw, 0.72rem);
             font-weight: 700;
@@ -502,7 +549,7 @@
         }
 
         .product-sub {
-            color: #8b949e;
+            color: var(--text-muted);
             font-size: clamp(0.52rem, 0.75vw, 0.6rem);
             margin-top: 3px;
             display: -webkit-box;
@@ -515,11 +562,12 @@
            ФУТЕР
         ------------------------------------ */
         footer {
-            padding-bottom: 10px;
+            padding-bottom: 12px;
             padding-top: 4px;
             text-align: center;
-            color: #ffffff;
+            color: var(--text-muted);
             font-size: clamp(0.6rem, 0.8vw, 0.68rem);
+            font-weight: 600;
             opacity: 0;
             animation: fadeInFooter 1s ease forwards 5.2s;
             z-index: 5;
@@ -535,8 +583,9 @@
         }
 
         .footer-email {
-            color: #1fb5ff;
+            color: var(--primary-blue);
             text-decoration: none;
+            font-weight: 700;
         }
 
         @keyframes fadeInFooter {
@@ -567,10 +616,17 @@
         </div>
     </div>
 
-    <!-- МОДАЛЬНЕ ВІКНО ПІДКАЗКИ -->
+    <!-- МОДАЛЬНЕ ВІКНО ПІДКАЗКИ ДЛЯ ВСТАНОВЛЕННЯ -->
     <div class="install-guide-modal" id="installModal">
         <div class="modal-box">
-            <div class="modal-title">ЯК ВСТАНОВИТИ WEEBWE</div>
+            <div class="modal-icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+            </div>
+            <div class="modal-title">ВСТАНОВЛЕННЯ WEEBWE</div>
             <div class="modal-desc" id="modalDesc">
                 Натисніть «Поділитися» або відкрийте меню браузера (⋮ / ⚙) та оберіть пункт <b>«Додати на початковий екран»</b> або <b>«Встановити додаток»</b>.
             </div>
@@ -611,8 +667,8 @@
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="6" y1="12" x2="10" y2="12"></line>
                         <line x1="8" y1="10" x2="8" y2="14"></line>
-                        <circle cx="15" cy="13" r="1" fill="#1fb5ff"></circle>
-                        <circle cx="18" cy="11" r="1" fill="#1fb5ff"></circle>
+                        <circle cx="15" cy="13" r="1" fill="#0094FE"></circle>
+                        <circle cx="18" cy="11" r="1" fill="#0094FE"></circle>
                         <rect x="2" y="6" width="20" height="12" rx="6"></rect>
                     </svg>
                     <div class="card-title">GAMES</div>
@@ -675,7 +731,7 @@
                 
                 <div class="products-scroll-area">
                     <div class="products-grid" id="productsGrid">
-                        <!-- Динамічні вертикальні карти -->
+                        <!-- Динамічні карти -->
                     </div>
                 </div>
             </div>
@@ -781,45 +837,48 @@
 
         function getIconSvg(type) {
             switch(type) {
-                case 'gamepad': return '<rect x="2" y="6" width="20" height="12" rx="6"></rect><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1" fill="#1fb5ff"></circle><circle cx="18" cy="11" r="1" fill="#1fb5ff"></circle>';
+                case 'gamepad': return '<rect x="2" y="6" width="20" height="12" rx="6"></rect><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1" fill="#0094FE"></circle><circle cx="18" cy="11" r="1" fill="#0094FE"></circle>';
                 case 'server': return '<rect x="2" y="2" width="20" height="8" rx="2"></rect><rect x="2" y="14" width="20" height="8" rx="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line>';
                 case 'code': return '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>';
                 case 'file': return '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>';
                 case 'mail': return '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>';
                 case 'chat': return '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>';
-                default: return '<rect x="5" y="2" width="14" height="20" rx="2"></rx><line x1="12" y1="18" x2="12.01" y2="18"></line>';
+                default: return '<rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line>';
             }
         }
 
         /* ------------------------------------
-           НАДІЙНА ЛОГІКА ВСТАНОВЛЕННЯ PWA
+           ОНОВЛЕНА ЛОГІКА ВСТАНОВЛЕННЯ PWA
         ------------------------------------ */
-        let deferredPrompt;
+        let deferredPrompt = null;
         const banner = document.getElementById('installBanner');
         const installBtn = document.getElementById('installBtn');
         const modal = document.getElementById('installModal');
 
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
-        if (!isStandalone) {
-            setTimeout(() => {
-                banner.classList.add('show');
-            }, 5000);
-        }
-
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
+            if (!isStandalone) {
+                banner.classList.add('show');
+            }
         });
+
+        if (!isStandalone) {
+            setTimeout(() => {
+                banner.classList.add('show');
+            }, 4000);
+        }
 
         installBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
-                deferredPrompt = null;
                 if (outcome === 'accepted') {
                     banner.classList.remove('show');
                 }
+                deferredPrompt = null;
             } else {
                 showInstallInstructions();
             }
@@ -830,9 +889,9 @@
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
             if (isIOS) {
-                modalDesc.innerHTML = 'Натисніть кнопку <b>«Поділитися»</b> (<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1fb5ff" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>) знизу в Safari та оберіть <b>«На початковий екран»</b>.';
+                modalDesc.innerHTML = 'Щоб встановити додаток на iOS, натисніть кнопку <b>«Поділитися»</b> (<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0094FE" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>) у меню Safari та виберіть пункт <b>«На початковий екран»</b>.';
             } else {
-                modalDesc.innerHTML = 'Натисніть меню браузера (<b>⋮</b> або <b>⚙</b>) у верхньому кутку та оберіть <b>«Встановити додаток»</b> або <b>«Додати на робочий стіл»</b>.';
+                modalDesc.innerHTML = 'Натисніть на меню браузера (<b>⋮</b> або <b>⚙</b>) у верхній панелі та оберіть пункт <b>«Встановити додаток»</b> або <b>«Додати на початковий екран»</b>.';
             }
 
             modal.classList.add('open');
